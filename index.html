@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Pitch Deck — پالس مدیریت</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 <style>
@@ -15,6 +15,7 @@ body {
     direction: rtl;
     overflow: hidden;
     height: 100vh;
+    height: 100dvh;
 }
 
 .bg-glow {
@@ -28,23 +29,64 @@ body {
 .bg-gold { width: 700px; height: 700px; background: #f1c40f; top: -250px; right: -250px; }
 .bg-blue { width: 600px; height: 600px; background: #3498db; bottom: -200px; left: -200px; }
 
+/* ═══════════════════════════════════════════════════════════
+   Page Counter (شمارنده صفحات)
+   ═══════════════════════════════════════════════════════════ */
+.page-counter {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: rgba(26, 26, 46, 0.95);
+    color: #f1c40f;
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 16px;
+    border: 2px solid #f1c40f;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    direction: ltr;
+    font-family: "Vazirmatn", Tahoma, sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Slides Wrapper (سیستم گالری)
+   ═══════════════════════════════════════════════════════════ */
+.slides-wrapper {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    /* مخفی کردن اسکرول‌بار */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.slides-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
 .slide {
-    width: 100vw; height: 100vh;
-    display: none; padding: 40px 60px;
-    overflow-y: auto; position: relative; z-index: 1;
-}
-
-.slide.active {
-    display: flex; flex-direction: column;
+    width: 100vw;
+    height: 100%;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    animation: fadeIn 0.5s ease-out;
+    padding: 40px 60px;
+    position: relative;
+    z-index: 1;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
+/* ═══════════════════════════════════════════════════════════
+   استایل‌های عمومی
+   ═══════════════════════════════════════════════════════════ */
 .slide-title {
     font-size: 42px; color: #f1c40f;
     text-align: center; margin-bottom: 30px;
@@ -93,6 +135,7 @@ body {
     justify-content: center;
     box-shadow: 0 15px 40px rgba(52, 152, 219, 0.5);
     position: relative;
+    flex-shrink: 0;
 }
 .pulse-logo svg {
     width: 40px;
@@ -688,19 +731,125 @@ body {
 }
 .contact-badge:hover { background: rgba(241,196,15,0.25); transform: translateY(-4px); }
 
-@media (max-width: 1100px) {
-    .hero-layout { grid-template-columns: 1fr; }
-    .hero-devices-side { display: none; }
-    .hero-features-row { grid-template-columns: repeat(2, 1fr); }
+/* ═══════════════════════════════════════════════════════════
+   Responsive Media Queries (Tablet & Mobile)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Tablet & Small Laptops (up to 1024px) ─── */
+@media (max-width: 1024px) {
+    .slide { padding: 30px 40px; }
     .hero-brand-name { font-size: 42px; }
-    .qr-layout { grid-template-columns: 1fr; }
-    .roadmap-timeline { grid-template-columns: 1fr; gap: 12px; }
-    .roadmap-line-h { width: 3px; height: 20px; margin: 0 auto; }
-    .problem-grid, .why-grid, .compare-grid, .market-grid { grid-template-columns: 1fr; }
+    .slide-title { font-size: 36px; }
     .features-grid { grid-template-columns: repeat(3, 1fr); }
-    .solution-flow { grid-template-columns: 1fr; }
-    .flow-arrow { transform: rotate(-90deg); }
-    .feature-slide-layout { grid-template-columns: 1fr; }
+    .solution-flow { grid-template-columns: 1fr; gap: 20px; }
+    .flow-arrow { transform: rotate(-90deg); margin: 10px 0; }
+    .roadmap-timeline { grid-template-columns: 1fr; gap: 20px; }
+    .roadmap-line-h { width: 3px; height: 20px; margin: 0 auto; background: linear-gradient(to bottom, #f1c40f, transparent); }
+    .compare-grid { grid-template-columns: 1fr; }
+    .problem-grid, .market-grid, .why-grid { grid-template-columns: 1fr; }
+    .hero-layout { grid-template-columns: 1fr; gap: 30px; }
+    .hero-devices-side { padding: 10px; }
+    .feature-slide-layout { grid-template-columns: 1fr; gap: 30px; }
+    .qr-layout { grid-template-columns: 1fr; gap: 30px; }
+}
+
+/* ─── Mobile Landscape & Large Phones (up to 768px) ─── */
+@media (max-width: 768px) {
+    .slide { padding: 20px; justify-content: flex-start; padding-top: 60px; }
+    .slide-title { font-size: 28px; margin-bottom: 20px; }
+    .hero-brand-name { font-size: 36px; }
+    .hero-main-tagline { font-size: 20px; }
+    .hero-sub-tagline { font-size: 16px; }
+    
+    .hero-devices-side { display: flex; justify-content: center; margin-top: 10px; }
+    .laptop-mockup { width: 100%; transform: none; }
+    .laptop-mockup:hover { transform: none; }
+    .laptop-screen { height: 250px; }
+    .phone-mockup { 
+        position: relative; 
+        bottom: auto; left: auto; 
+        margin-top: -80px; margin-right: -20px;
+        transform: scale(0.8); 
+        z-index: 3;
+    }
+    .phone-mockup:hover { transform: scale(0.8); }
+    
+    .feature-heading { font-size: 24px; }
+    .feature-desc { font-size: 14px; }
+    .feature-list li { font-size: 14px; padding: 10px 14px; }
+    .feature-slide-layout { gap: 20px; }
+    
+    .features-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .feature-card { min-height: 120px; padding: 15px 10px; }
+    .feature-icon { font-size: 36px; }
+    .hero-features-row { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    
+    .compare-head { font-size: 16px; padding: 12px; }
+    .compare-row { font-size: 12px; padding: 8px 10px; }
+    
+    .problem-icon, .market-icon { font-size: 50px; }
+    .problem-num { font-size: 36px; }
+    .market-title { font-size: 20px; }
+    
+    .phase-badge { right: 10px; }
+    .roadmap-phase { padding: 15px 10px; }
+    
+    .qr-frame { padding: 20px; }
+    .qr-img-box { padding: 10px; }
+    .qr-img { width: 100%; max-width: 200px; height: auto; }
+    .brand-name { font-size: 42px; }
+    .brand-logo { font-size: 70px; }
+    .brand-tag, .brand-msg { font-size: 16px; }
+    .contact-badge { font-size: 14px; padding: 8px 14px; }
+    
+    .ui-sidebar { width: 60px; padding: 4px; }
+    .ui-menu { font-size: 5px; padding: 2px 4px; }
+    .ui-stat-val { font-size: 10px; }
+    .ui-stat-lbl { font-size: 5px; }
+    .ui-welcome-title { font-size: 7px; }
+    .ui-welcome-date { font-size: 5px; }
+    .ui-btn-report { font-size: 6px; padding: 2px 6px; }
+    .ui-table th, .ui-table td { font-size: 5px; padding: 2px; }
+}
+
+/* ─── Mobile Portrait (up to 480px) ─── */
+@media (max-width: 480px) {
+    .slide { padding: 15px; padding-top: 50px; }
+    .slide-title { font-size: 22px; margin-bottom: 15px; }
+    .hero-brand-name { font-size: 28px; }
+    .hero-brand-row { flex-direction: column; text-align: center; gap: 10px; }
+    .hero-main-tagline { font-size: 18px; }
+    .hero-sub-tagline { font-size: 14px; }
+    
+    .features-grid { grid-template-columns: 1fr; }
+    .hero-features-row { grid-template-columns: repeat(2, 1fr); }
+    
+    .laptop-screen { height: 200px; padding: 6px; }
+    .laptop-base { height: 10px; }
+    
+    .feature-heading { font-size: 20px; }
+    .feature-desc { font-size: 13px; }
+    
+    .problem-icon, .market-icon { font-size: 40px; }
+    .problem-num { font-size: 28px; }
+    .problem-lbl { font-size: 16px; }
+    .market-title { font-size: 18px; }
+    
+    .why-icon { width: 60px; height: 60px; font-size: 30px; }
+    .why-content h3 { font-size: 18px; }
+    .why-content p { font-size: 12px; }
+    
+    .brand-name { font-size: 32px; }
+    .brand-logo { font-size: 50px; }
+    .brand-tag, .brand-msg { font-size: 14px; }
+    .contact-badge { font-size: 12px; padding: 6px 10px; }
+    
+    .qr-img { max-width: 150px; }
+    .qr-text { font-size: 14px; }
+    .qr-text .hl { font-size: 16px; }
+    
+    .ui-sidebar { display: none; }
+    .ui-body { flex-direction: column; }
 }
 </style>
 </head>
@@ -709,597 +858,628 @@ body {
 <div class="bg-glow bg-gold"></div>
 <div class="bg-glow bg-blue"></div>
 
-<!-- ۱ — مشکل -->
-<section class="slide active">
-    <h2 class="slide-title">🚨 مشکلات امروز باشگاه‌ها</h2>
-    <div class="problem-grid">
-        <div class="problem-card">
-            <div class="problem-icon">💸</div>
-            <div class="problem-num">۷۰٪</div>
-            <div class="problem-lbl">اقساط فراموش‌شده</div>
-            <div class="problem-desc">پول‌هایی که برنمی‌گردند</div>
-        </div>
-        <div class="problem-card">
-            <div class="problem-icon">📝</div>
-            <div class="problem-num">۸۵٪</div>
-            <div class="problem-lbl">اطلاعات پراکنده</div>
-            <div class="problem-desc">دفتر، کاغذ، اکسل</div>
-        </div>
-        <div class="problem-card">
-            <div class="problem-icon">🕐</div>
-            <div class="problem-num">۵+ ساعت</div>
-            <div class="problem-lbl">کار دستی روزانه</div>
-            <div class="problem-desc">وقتی که هدر می‌رود</div>
-        </div>
-    </div>
-</section>
+<!-- Page Counter (شمارنده صفحات) -->
+<div class="page-counter">
+    <span id="pageCounterText">1 / 12</span>
+</div>
 
-<!-- ۲ — راه‌حل -->
-<section class="slide">
-    <h2 class="slide-title">✨ راه‌حل ما — فرایند کامل</h2>
-    <div class="solution-flow">
-        <div class="flow-step">
-            <div class="flow-num">۱</div>
-            <div class="flow-icon">📝</div>
-            <div class="flow-title">ثبت سریع</div>
-            <div class="flow-text">ثبت عضو، پرداخت، حضور</div>
-        </div>
-        <div class="flow-arrow">◄</div>
-        <div class="flow-step">
-            <div class="flow-num">۲</div>
-            <div class="flow-icon">🛡️</div>
-            <div class="flow-title">ذخیره محلی</div>
-            <div class="flow-text">بدون نیاز به اینترنت</div>
-        </div>
-        <div class="flow-arrow">◄</div>
-        <div class="flow-step">
-            <div class="flow-num">۳</div>
-            <div class="flow-icon">🔄</div>
-            <div class="flow-title">همگام‌سازی</div>
-            <div class="flow-text">خودکار به فضای ابری</div>
-        </div>
-        <div class="flow-arrow">◄</div>
-        <div class="flow-step">
-            <div class="flow-num">۴</div>
-            <div class="flow-icon">📱</div>
-            <div class="flow-title">دسترسی همه‌جا</div>
-            <div class="flow-text">موبایل + لپ‌تاپ</div>
-        </div>
-    </div>
-</section>
+<!-- Slides Wrapper (کانتینر گالری) -->
+<div class="slides-wrapper">
 
-<!-- ۳ — معرفی (Hero) -->
-<section class="slide">
-    <div class="hero-layout">
-        <div class="hero-text-side">
-            <div class="hero-brand-row">
-                <div class="pulse-logo">
-                    <svg viewBox="0 0 100 100">
-                        <polyline points="0,50 25,50 35,20 45,80 55,40 65,60 75,30 85,50 100,50" />
-                    </svg>
-                </div>
-                <h1 class="hero-brand-name">پالس مدیریت</h1>
+    <!-- ۱ — مشکل -->
+    <section class="slide">
+        <h2 class="slide-title">🚨 مشکلات امروز باشگاه‌ها</h2>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">💸</div>
+                <div class="problem-num">۷۰٪</div>
+                <div class="problem-lbl">اقساط فراموش‌شده</div>
+                <div class="problem-desc">پول‌هایی که برنمی‌گردند</div>
             </div>
-            <p class="hero-main-tagline">مدیریت یکپارچه، ساده و هوشمند</p>
-            <p class="hero-sub-tagline">برای مجموعه‌های ورزشی و آموزشی</p>
-            
-            <div class="hero-features-row">
-                <div class="hero-feature-item">
-                    <div class="hero-feature-icon">🇮🇷</div>
-                    <div class="hero-feature-label">کاملاً فارسی</div>
-                </div>
-                <div class="hero-feature-item">
-                    <div class="hero-feature-icon">☁️</div>
-                    <div class="hero-feature-label">ابری و آفلاین</div>
-                </div>
-                <div class="hero-feature-item">
-                    <div class="hero-feature-icon">👥</div>
-                    <div class="hero-feature-label">پورتال اختصاصی اعضا</div>
-                </div>
-                <div class="hero-feature-item">
-                    <div class="hero-feature-icon">🛡️</div>
-                    <div class="hero-feature-label">امنیت و پشتیبانی</div>
-                </div>
+            <div class="problem-card">
+                <div class="problem-icon">📝</div>
+                <div class="problem-num">۸۵٪</div>
+                <div class="problem-lbl">اطلاعات پراکنده</div>
+                <div class="problem-desc">دفتر، کاغذ، اکسل</div>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🕐</div>
+                <div class="problem-num">۵+ ساعت</div>
+                <div class="problem-lbl">کار دستی روزانه</div>
+                <div class="problem-desc">وقتی که هدر می‌رود</div>
             </div>
         </div>
+    </section>
 
-        <div class="hero-devices-side">
-            <div class="devices-container">
-                <!-- Laptop -->
-                <div class="laptop-mockup">
-                    <div class="laptop-screen">
-                        <div class="ui-header">
-                            <span>⭐ باشگاه ستارگان</span>
-                            <span>⏰ 12:04:55 | متصل | فعال</span>
-                        </div>
-                        <div class="ui-body">
-                            <div class="ui-sidebar">
-                                <div class="ui-menu active">🏠 صفحه اصلی</div>
-                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
-                                <div class="ui-menu">✅ حضور و غیاب</div>
-                                <div class="ui-menu">📅 رزرو کلاس</div>
-                                <div class="ui-menu">🏆 رتبه‌بندی</div>
-                                <div class="ui-menu">💰 امور مالی</div>
-                            </div>
-                            <div class="ui-main">
-                                <div class="ui-stat-cards">
-                                    <div class="ui-stat-card blue"><div class="ui-stat-val">6</div><div class="ui-stat-lbl">کل ورزشکاران</div></div>
-                                    <div class="ui-stat-card green"><div class="ui-stat-val">5</div><div class="ui-stat-lbl">فعال</div></div>
-                                    <div class="ui-stat-card red"><div class="ui-stat-val">1</div><div class="ui-stat-lbl">غیرفعال</div></div>
-                                    <div class="ui-stat-card yellow"><div class="ui-stat-val">2</div><div class="ui-stat-lbl">کلاس‌ها</div></div>
-                                </div>
-                                <div class="ui-welcome">
-                                    <div class="ui-welcome-title">⭐ به باشگاه ستارگان خوش آمدید</div>
-                                    <div class="ui-welcome-date">📅 پنجشنبه - 1405/07/16</div>
-                                    <button class="ui-btn-report">📊 گزارش ماهیانه</button>
-                                </div>
-                            </div>
-                        </div>
+    <!-- ۲ — راه‌حل -->
+    <section class="slide">
+        <h2 class="slide-title">✨ راه‌حل ما — فرایند کامل</h2>
+        <div class="solution-flow">
+            <div class="flow-step">
+                <div class="flow-num">۱</div>
+                <div class="flow-icon">📝</div>
+                <div class="flow-title">ثبت سریع</div>
+                <div class="flow-text">ثبت عضو، پرداخت، حضور</div>
+            </div>
+            <div class="flow-arrow">◄</div>
+            <div class="flow-step">
+                <div class="flow-num">۲</div>
+                <div class="flow-icon">🛡️</div>
+                <div class="flow-title">ذخیره محلی</div>
+                <div class="flow-text">بدون نیاز به اینترنت</div>
+            </div>
+            <div class="flow-arrow">◄</div>
+            <div class="flow-step">
+                <div class="flow-num">۳</div>
+                <div class="flow-icon">🔄</div>
+                <div class="flow-title">همگام‌سازی</div>
+                <div class="flow-text">خودکار به فضای ابری</div>
+            </div>
+            <div class="flow-arrow">◄</div>
+            <div class="flow-step">
+                <div class="flow-num">۴</div>
+                <div class="flow-icon">📱</div>
+                <div class="flow-title">دسترسی همه‌جا</div>
+                <div class="flow-text">موبایل + لپ‌تاپ</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ۳ — معرفی (Hero) -->
+    <section class="slide">
+        <div class="hero-layout">
+            <div class="hero-text-side">
+                <div class="hero-brand-row">
+                    <div class="pulse-logo">
+                        <svg viewBox="0 0 100 100">
+                            <polyline points="0,50 25,50 35,20 45,80 55,40 65,60 75,30 85,50 100,50" />
+                        </svg>
                     </div>
-                    <div class="laptop-base"></div>
+                    <h1 class="hero-brand-name">پالس مدیریت</h1>
                 </div>
-
-                <!-- Phone -->
-                <div class="phone-mockup">
-                    <div class="phone-notch"></div>
-                    <div class="phone-screen">
-                        <div class="ph-header-portal">
-                            <span>پورتال اعضا</span>
-                            <span>🔔</span>
-                        </div>
-                        <div class="ph-profile">
-                            <div class="ph-avatar">👤</div>
-                            <div class="ph-info">
-                                <div class="ph-name">علی احمدی</div>
-                                <div class="ph-id">ID: 4092</div>
-                            </div>
-                        </div>
-                        <div class="ph-stats-grid">
-                            <div class="ph-stat-box">
-                                <div class="ph-stat-val">۱۲</div>
-                                <div class="ph-stat-lbl">حضور</div>
-                            </div>
-                            <div class="ph-stat-box">
-                                <div class="ph-stat-val">۲ روز</div>
-                                <div class="ph-stat-lbl">تا قسط بعدی</div>
-                            </div>
-                        </div>
-                        <div class="ph-activity-list">
-                            <div class="ph-act-title">آخرین فعالیت‌ها</div>
-                            <div class="ph-act-item"><span>💰 پرداخت قسط ۲</span><span>۱۰:۳۰</span></div>
-                            <div class="ph-act-item"><span>✅ ثبت حضور</span><span>۰۸:۱۵</span></div>
-                        </div>
-                        <div class="ph-nav">
-                            <div class="ph-nav-item active">🏠</div>
-                            <div class="ph-nav-item">📅</div>
-                            <div class="ph-nav-item">💰</div>
-                            <div class="ph-nav-item">👤</div>
-                        </div>
+                <p class="hero-main-tagline">مدیریت یکپارچه، ساده و هوشمند</p>
+                <p class="hero-sub-tagline">برای مجموعه‌های ورزشی و آموزشی</p>
+                
+                <div class="hero-features-row">
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon">🇮🇷</div>
+                        <div class="hero-feature-label">کاملاً فارسی</div>
+                    </div>
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon">☁️</div>
+                        <div class="hero-feature-label">ابری و آفلاین</div>
+                    </div>
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon">👥</div>
+                        <div class="hero-feature-label">پورتال اختصاصی اعضا</div>
+                    </div>
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon">🛡️</div>
+                        <div class="hero-feature-label">امنیت و پشتیبانی</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<!-- ۴ — ویژگی ها (به چه دردی میخوره) -->
-<section class="slide">
-    <h2 class="slide-title">🎯 به چه دردی می‌خوره؟ (ویژگی‌ها)</h2>
-    <div class="features-grid">
-        <div class="feature-card"><div class="feature-icon">👥</div><div class="feature-title">مدیریت اعضا</div><div class="feature-desc">پرونده + تاریخچه</div></div>
-        <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title">حضور و غیاب</div><div class="feature-desc">ثبت + گزارش</div></div>
-        <div class="feature-card"><div class="feature-icon">💰</div><div class="feature-title">مدیریت مالی</div><div class="feature-desc">پرداخت + اقساط</div></div>
-        <div class="feature-card"><div class="feature-icon">📅</div><div class="feature-title">برنامه کلاس‌ها</div><div class="feature-desc">تقویم + ظرفیت</div></div>
-        <div class="feature-card star"><div class="feature-icon">💬</div><div class="feature-title">پیام‌رسان</div><div class="feature-desc">ارتباط مدیر با اعضا</div></div>
-        <div class="feature-card star"><div class="feature-icon">📊</div><div class="feature-title">گزارش‌های هوشمند</div><div class="feature-desc">نمودار + آمار</div></div>
-        <div class="feature-card star"><div class="feature-icon">🔔</div><div class="feature-title">اطلاع‌رسانی</div><div class="feature-desc">یادآوری اقساط</div></div>
-        <div class="feature-card"><div class="feature-icon">🎁</div><div class="feature-title">کیف پول</div><div class="feature-desc">شارژ + پرداخت</div></div>
-        <div class="feature-card"><div class="feature-icon">🥤</div><div class="feature-title">بوفه</div><div class="feature-desc">فروش + موجودی</div></div>
-        <div class="feature-card"><div class="feature-icon">👔</div><div class="feature-title">کارکنان</div><div class="feature-desc">حقوق + پاداش</div></div>
-        <div class="feature-card"><div class="feature-icon">🏆</div><div class="feature-title">رتبه‌بندی</div><div class="feature-desc">امتیاز + سطح</div></div>
-        <div class="feature-card"><div class="feature-icon">🎫</div><div class="feature-title">کارت عضویت</div><div class="feature-desc">چاپ + QR</div></div>
-    </div>
-</section>
-
-<!-- ۵ — توضیحات فنی: داشبورد -->
-<section class="slide">
-    <div class="feature-slide-layout">
-        <div class="feature-text-side">
-            <div class="feature-badge">💰 توضیحات فنی — امور مالی و داشبورد</div>
-            <h2 class="feature-heading">تصمیم‌گیری بر اساس داده‌ها، نه حدس و گمان</h2>
-            <p class="feature-desc">با داشبورد مدیریتی پالس، در یک نگاه وضعیت مالی باشگاه، درآمدها، هزینه‌ها و اقساط را ببینید. دیگر نیازی به ورق زدن دفتر و اکسل نیست.</p>
-            <ul class="feature-list">
-                <li><span class="icon">✅</span> مشاهده لحظه‌ای درآمد و هزینه‌ها</li>
-                <li><span class="icon">✅</span> مدیریت یکپارچه اقساط و بدهی‌ها</li>
-                <li><span class="icon">✅</span> گزارش‌گیری دقیق مالی برای تصمیم‌گیری بهتر</li>
-            </ul>
-        </div>
-        <div class="hero-devices-side">
-            <div class="devices-container">
-                <div class="laptop-mockup">
-                    <div class="laptop-screen">
-                        <div class="ui-header">
-                            <span>⭐ باشگاه ستارگان</span>
-                            <span>⏰ 12:08:33 | متصل | فعال</span>
-                        </div>
-                        <div class="ui-body">
-                            <div class="ui-sidebar">
-                                <div class="ui-menu">🏠 صفحه اصلی</div>
-                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
-                                <div class="ui-menu">✅ حضور و غیاب</div>
-                                <div class="ui-menu active">💰 امور مالی</div>
-                                <div class="ui-menu">📅 رزرو کلاس</div>
-                                <div class="ui-menu">🏆 رتبه‌بندی</div>
+            <div class="hero-devices-side">
+                <div class="devices-container">
+                    <!-- Laptop -->
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen">
+                            <div class="ui-header">
+                                <span>⭐ باشگاه ستارگان</span>
+                                <span>⏰ 12:04:55 | متصل | فعال</span>
                             </div>
-                            <div class="ui-main">
-                                <div class="ui-stat-cards">
-                                    <div class="ui-stat-card blue"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">کل دریافتی</div></div>
-                                    <div class="ui-stat-card red"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">کل مخارج</div></div>
-                                    <div class="ui-stat-card yellow"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">مانده</div></div>
+                            <div class="ui-body">
+                                <div class="ui-sidebar">
+                                    <div class="ui-menu active">🏠 صفحه اصلی</div>
+                                    <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                    <div class="ui-menu">✅ حضور و غیاب</div>
+                                    <div class="ui-menu">📅 رزرو کلاس</div>
+                                    <div class="ui-menu">🏆 رتبه‌بندی</div>
+                                    <div class="ui-menu">💰 امور مالی</div>
                                 </div>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px;">
-                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📊 گزارش مالی</div>
-                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">💳 دریافت شهریه</div>
-                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📝 ثبت مخارج</div>
-                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📅 مدیریت اقساط</div>
+                                <div class="ui-main">
+                                    <div class="ui-stat-cards">
+                                        <div class="ui-stat-card blue"><div class="ui-stat-val">6</div><div class="ui-stat-lbl">کل ورزشکاران</div></div>
+                                        <div class="ui-stat-card green"><div class="ui-stat-val">5</div><div class="ui-stat-lbl">فعال</div></div>
+                                        <div class="ui-stat-card red"><div class="ui-stat-val">1</div><div class="ui-stat-lbl">غیرفعال</div></div>
+                                        <div class="ui-stat-card yellow"><div class="ui-stat-val">2</div><div class="ui-stat-lbl">کلاس‌ها</div></div>
+                                    </div>
+                                    <div class="ui-welcome">
+                                        <div class="ui-welcome-title">⭐ به باشگاه ستارگان خوش آمدید</div>
+                                        <div class="ui-welcome-date">📅 پنجشنبه - 1405/07/16</div>
+                                        <button class="ui-btn-report">📊 گزارش ماهیانه</button>
+                                    </div>
                                 </div>
-                                <div style="margin-top: 6px; font-size: 7px; color: #f1c40f; font-weight: 800;">آخرین تراکنش‌ها</div>
-                                <table class="ui-table">
-                                    <tr><th>نوع</th><th>مبلغ</th><th>تاریخ</th><th>توضیحات</th></tr>
-                                    <tr><td>دریافت</td><td>۱,۵۰۰,۰۰۰</td><td>1405/07/16</td><td>شهریه مهدی</td></tr>
-                                </table>
+                            </div>
+                        </div>
+                        <div class="laptop-base"></div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="phone-mockup">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <div class="ph-header-portal">
+                                <span>پورتال اعضا</span>
+                                <span>🔔</span>
+                            </div>
+                            <div class="ph-profile">
+                                <div class="ph-avatar">👤</div>
+                                <div class="ph-info">
+                                    <div class="ph-name">علی احمدی</div>
+                                    <div class="ph-id">ID: 4092</div>
+                                </div>
+                            </div>
+                            <div class="ph-stats-grid">
+                                <div class="ph-stat-box">
+                                    <div class="ph-stat-val">۱۲</div>
+                                    <div class="ph-stat-lbl">حضور</div>
+                                </div>
+                                <div class="ph-stat-box">
+                                    <div class="ph-stat-val">۲ روز</div>
+                                    <div class="ph-stat-lbl">تا قسط بعدی</div>
+                                </div>
+                            </div>
+                            <div class="ph-activity-list">
+                                <div class="ph-act-title">آخرین فعالیت‌ها</div>
+                                <div class="ph-act-item"><span>💰 پرداخت قسط ۲</span><span>۱۰:۳۰</span></div>
+                                <div class="ph-act-item"><span>✅ ثبت حضور</span><span>۰۸:۱۵</span></div>
+                            </div>
+                            <div class="ph-nav">
+                                <div class="ph-nav-item active">🏠</div>
+                                <div class="ph-nav-item">📅</div>
+                                <div class="ph-nav-item">💰</div>
+                                <div class="ph-nav-item">👤</div>
                             </div>
                         </div>
                     </div>
-                    <div class="laptop-base"></div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ۶ — توضیحات فنی: کلاس‌ها -->
-<section class="slide">
-    <div class="feature-slide-layout">
-        <div class="feature-text-side">
-            <div class="feature-badge">📅 توضیحات فنی — مدیریت کلاس‌ها</div>
-            <h2 class="feature-heading">برنامه‌ریزی هوشمند، بدون تداخل</h2>
-            <p class="feature-desc">کلاس‌ها را تعریف کنید، مربی اختصاص دهید، ظرفیت و شهریه را مشخص کنید. سیستم به صورت خودکار از تداخل جلوگیری می‌کند.</p>
-            <ul class="feature-list">
-                <li><span class="icon">✅</span> تعریف آسان کلاس‌ها و رشته‌های ورزشی</li>
-                <li><span class="icon">✅</span> تخصیص مربی و مدیریت ظرفیت</li>
-                <li><span class="icon">✅</span> مشاهده لیست کامل کلاس‌ها و تعداد اعضا</li>
-            </ul>
+    <!-- ۴ — ویژگی ها -->
+    <section class="slide">
+        <h2 class="slide-title">🎯 به چه دردی می‌خوره؟ (ویژگی‌ها)</h2>
+        <div class="features-grid">
+            <div class="feature-card"><div class="feature-icon">👥</div><div class="feature-title">مدیریت اعضا</div><div class="feature-desc">پرونده + تاریخچه</div></div>
+            <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title">حضور و غیاب</div><div class="feature-desc">ثبت + گزارش</div></div>
+            <div class="feature-card"><div class="feature-icon">💰</div><div class="feature-title">مدیریت مالی</div><div class="feature-desc">پرداخت + اقساط</div></div>
+            <div class="feature-card"><div class="feature-icon">📅</div><div class="feature-title">برنامه کلاس‌ها</div><div class="feature-desc">تقویم + ظرفیت</div></div>
+            <div class="feature-card star"><div class="feature-icon">💬</div><div class="feature-title">پیام‌رسان</div><div class="feature-desc">ارتباط مدیر با اعضا</div></div>
+            <div class="feature-card star"><div class="feature-icon">📊</div><div class="feature-title">گزارش‌های هوشمند</div><div class="feature-desc">نمودار + آمار</div></div>
+            <div class="feature-card star"><div class="feature-icon">🔔</div><div class="feature-title">اطلاع‌رسانی</div><div class="feature-desc">یادآوری اقساط</div></div>
+            <div class="feature-card"><div class="feature-icon">🎁</div><div class="feature-title">کیف پول</div><div class="feature-desc">شارژ + پرداخت</div></div>
+            <div class="feature-card"><div class="feature-icon">🥤</div><div class="feature-title">بوفه</div><div class="feature-desc">فروش + موجودی</div></div>
+            <div class="feature-card"><div class="feature-icon">👔</div><div class="feature-title">کارکنان</div><div class="feature-desc">حقوق + پاداش</div></div>
+            <div class="feature-card"><div class="feature-icon">🏆</div><div class="feature-title">رتبه‌بندی</div><div class="feature-desc">امتیاز + سطح</div></div>
+            <div class="feature-card"><div class="feature-icon">🎫</div><div class="feature-title">کارت عضویت</div><div class="feature-desc">چاپ + QR</div></div>
         </div>
-        <div class="hero-devices-side">
-            <div class="devices-container">
-                <div class="laptop-mockup">
-                    <div class="laptop-screen">
-                        <div class="ui-header">
-                            <span>⭐ باشگاه ستارگان</span>
-                            <span>⏰ 12:08:55 | متصل | فعال</span>
-                        </div>
-                        <div class="ui-body">
-                            <div class="ui-sidebar">
-                                <div class="ui-menu">🏠 صفحه اصلی</div>
-                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
-                                <div class="ui-menu">✅ حضور و غیاب</div>
-                                <div class="ui-menu">💰 امور مالی</div>
-                                <div class="ui-menu active">📅 کلاس‌ها</div>
-                                <div class="ui-menu">🏆 رتبه‌بندی</div>
+    </section>
+
+    <!-- ۵ — توضیحات فنی: داشبورد -->
+    <section class="slide">
+        <div class="feature-slide-layout">
+            <div class="feature-text-side">
+                <div class="feature-badge">💰 توضیحات فنی — امور مالی و داشبورد</div>
+                <h2 class="feature-heading">تصمیم‌گیری بر اساس داده‌ها، نه حدس و گمان</h2>
+                <p class="feature-desc">با داشبورد مدیریتی پالس، در یک نگاه وضعیت مالی باشگاه، درآمدها، هزینه‌ها و اقساط را ببینید. دیگر نیازی به ورق زدن دفتر و اکسل نیست.</p>
+                <ul class="feature-list">
+                    <li><span class="icon">✅</span> مشاهده لحظه‌ای درآمد و هزینه‌ها</li>
+                    <li><span class="icon">✅</span> مدیریت یکپارچه اقساط و بدهی‌ها</li>
+                    <li><span class="icon">✅</span> گزارش‌گیری دقیق مالی برای تصمیم‌گیری بهتر</li>
+                </ul>
+            </div>
+            <div class="hero-devices-side">
+                <div class="devices-container">
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen">
+                            <div class="ui-header">
+                                <span>⭐ باشگاه ستارگان</span>
+                                <span>⏰ 12:08:33 | متصل | فعال</span>
                             </div>
-                            <div class="ui-main">
-                                <div class="ui-form">
-                                    <div class="ui-input">نام کلاس: سانس کوچیک ها</div>
-                                    <div class="ui-input">رشته: کیک بوکسینگ</div>
-                                    <div class="ui-input">مربی: مهدی صالح زاده</div>
-                                    <div class="ui-input">شهریه (تومان): 1,500,000</div>
-                                    <div class="ui-input">جنسیت: آقایان</div>
-                                    <div class="ui-input">ظرفیت: 2</div>
+                            <div class="ui-body">
+                                <div class="ui-sidebar">
+                                    <div class="ui-menu">🏠 صفحه اصلی</div>
+                                    <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                    <div class="ui-menu">✅ حضور و غیاب</div>
+                                    <div class="ui-menu active">💰 امور مالی</div>
+                                    <div class="ui-menu">📅 رزرو کلاس</div>
+                                    <div class="ui-menu">🏆 رتبه‌بندی</div>
                                 </div>
-                                <div class="ui-btn-group">
-                                    <div class="ui-btn yellow">➕ افزودن کلاس</div>
-                                    <div class="ui-btn yellow">✏️ ویرایش</div>
-                                    <div class="ui-btn red">🗑️ حذف</div>
-                                    <div class="ui-btn gray">لغو</div>
+                                <div class="ui-main">
+                                    <div class="ui-stat-cards">
+                                        <div class="ui-stat-card blue"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">کل دریافتی</div></div>
+                                        <div class="ui-stat-card red"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">کل مخارج</div></div>
+                                        <div class="ui-stat-card yellow"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">مانده</div></div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px;">
+                                        <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📊 گزارش مالی</div>
+                                        <div class="ui-btn yellow" style="text-align:center; padding: 6px;">💳 دریافت شهریه</div>
+                                        <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📝 ثبت مخارج</div>
+                                        <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📅 مدیریت اقساط</div>
+                                    </div>
+                                    <div style="margin-top: 6px; font-size: 7px; color: #f1c40f; font-weight: 800;">آخرین تراکنش‌ها</div>
+                                    <table class="ui-table">
+                                        <tr><th>نوع</th><th>مبلغ</th><th>تاریخ</th><th>توضیحات</th></tr>
+                                        <tr><td>دریافت</td><td>۱,۵۰۰,۰۰۰</td><td>1405/07/16</td><td>شهریه مهدی</td></tr>
+                                    </table>
                                 </div>
-                                <table class="ui-table">
-                                    <tr><th>ID</th><th>نام کلاس</th><th>رشته</th><th>مربی</th><th>شهریه</th><th>ظرفیت</th><th>تعداد اعضا</th></tr>
-                                    <tr><td>2</td><td>سانس کوچیک ها</td><td>کیک بوکسینگ</td><td>مهدی صالح زاده</td><td>1,500,000</td><td>2</td><td>2</td></tr>
-                                    <tr><td>1</td><td>کیک</td><td>کیک</td><td>مهدی</td><td>1,500,000</td><td>0</td><td>2</td></tr>
-                                </table>
                             </div>
                         </div>
+                        <div class="laptop-base"></div>
                     </div>
-                    <div class="laptop-base"></div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ۷ — توضیحات فنی: حضور و غیاب -->
-<section class="slide">
-    <div class="feature-slide-layout">
-        <div class="feature-text-side">
-            <div class="feature-badge">✅ توضیحات فنی — حضور و غیاب</div>
-            <h2 class="feature-heading">ثبت یک‌کلیکی، گزارش لحظه‌ای</h2>
-            <p class="feature-desc">دیگر نیازی به دفتر و خودکار نیست. با یک کلیک حضور و غیاب اعضا را ثبت کنید و گزارش دقیق آن را در لحظه دریافت کنید.</p>
-            <ul class="feature-list">
-                <li><span class="icon">✅</span> رابط کاربری ساده برای ثبت سریع</li>
-                <li><span class="icon">✅</span> ثبت وضعیت (حاضر، غایب، تاخیر، مرخصی)</li>
-                <li><span class="icon">✅</span> محاسبه خودکار آمار حضور برای هر عضو</li>
-            </ul>
-        </div>
-        <div class="hero-devices-side">
-            <div class="devices-container">
-                <div class="laptop-mockup">
-                    <div class="laptop-screen">
-                        <div class="ui-header">
-                            <span>⭐ باشگاه ستارگان</span>
-                            <span>⏰ 12:07:57 | متصل | فعال</span>
-                        </div>
-                        <div class="ui-body">
-                            <div class="ui-sidebar">
-                                <div class="ui-menu">🏠 صفحه اصلی</div>
-                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
-                                <div class="ui-menu active">✅ حضور و غیاب</div>
-                                <div class="ui-menu">💰 امور مالی</div>
-                                <div class="ui-menu">📅 کلاس‌ها</div>
-                                <div class="ui-menu">🏆 رتبه‌بندی</div>
+    <!-- ۶ — توضیحات فنی: کلاس‌ها -->
+    <section class="slide">
+        <div class="feature-slide-layout">
+            <div class="feature-text-side">
+                <div class="feature-badge">📅 توضیحات فنی — مدیریت کلاس‌ها</div>
+                <h2 class="feature-heading">برنامه‌ریزی هوشمند، بدون تداخل</h2>
+                <p class="feature-desc">کلاس‌ها را تعریف کنید، مربی اختصاص دهید، ظرفیت و شهریه را مشخص کنید. سیستم به صورت خودکار از تداخل جلوگیری می‌کند.</p>
+                <ul class="feature-list">
+                    <li><span class="icon">✅</span> تعریف آسان کلاس‌ها و رشته‌های ورزشی</li>
+                    <li><span class="icon">✅</span> تخصیص مربی و مدیریت ظرفیت</li>
+                    <li><span class="icon">✅</span> مشاهده لیست کامل کلاس‌ها و تعداد اعضا</li>
+                </ul>
+            </div>
+            <div class="hero-devices-side">
+                <div class="devices-container">
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen">
+                            <div class="ui-header">
+                                <span>⭐ باشگاه ستارگان</span>
+                                <span>⏰ 12:08:55 | متصل | فعال</span>
                             </div>
-                            <div class="ui-main">
-                                <div class="ui-att-header">
-                                    <span>تاریخ: 1405/07/16</span>
-                                    <span>کلاس: سانس کوچیک ها</span>
-                                    <span class="ui-att-badge green">حاضر: 0</span>
-                                    <span class="ui-att-badge red">غایب: 0</span>
-                                    <span class="ui-att-badge yellow">تاخیر: 0</span>
+                            <div class="ui-body">
+                                <div class="ui-sidebar">
+                                    <div class="ui-menu">🏠 صفحه اصلی</div>
+                                    <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                    <div class="ui-menu">✅ حضور و غیاب</div>
+                                    <div class="ui-menu">💰 امور مالی</div>
+                                    <div class="ui-menu active">📅 کلاس‌ها</div>
+                                    <div class="ui-menu">🏆 رتبه‌بندی</div>
                                 </div>
-                                <table class="ui-table">
-                                    <tr><th>ردیف</th><th>نام</th><th>نام خانوادگی</th><th>حاضر</th><th>غایب</th><th>تاخیر</th><th>توضیحات</th></tr>
-                                    <tr>
-                                        <td>1</td><td>مهدی</td><td>امینی</td>
-                                        <td><div class="ui-radio active"></div></td>
-                                        <td><div class="ui-radio"></div></td>
-                                        <td><div class="ui-radio"></div></td>
-                                        <td><div class="ui-input" style="height: 12px;"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td><td>ایلیا</td><td>صالح زاده</td>
-                                        <td><div class="ui-radio"></div></td>
-                                        <td><div class="ui-radio active" style="border-color: #e74c3c; background: #e74c3c;"></div></td>
-                                        <td><div class="ui-radio"></div></td>
-                                        <td><div class="ui-input" style="height: 12px;"></div></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="laptop-base"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ۸ — توضیحات فنی: گزارش‌گیری -->
-<section class="slide">
-    <div class="feature-slide-layout">
-        <div class="feature-text-side">
-            <div class="feature-badge">📊 توضیحات فنی — گزارش‌گیری حرفه‌ای</div>
-            <h2 class="feature-heading">خروجی‌های دقیق برای مدیریت بهتر</h2>
-            <p class="feature-desc">با یک کلیک، گزارش‌های مالی، لیست اعضا و حضور و غیاب را به صورت PDF یا Excel دریافت کنید. همه چیز آماده برای ارائه به شرکا یا بایگانی.</p>
-            <ul class="feature-list">
-                <li><span class="icon">✅</span> خروجی PDF و Excel از تمام بخش‌ها</li>
-                <li><span class="icon">✅</span> فیلتر کردن گزارشات بر اساس کلاس</li>
-                <li><span class="icon">✅</span> گزارش‌های مالی دقیق برای حسابداری</li>
-            </ul>
-        </div>
-        <div class="hero-devices-side">
-            <div class="devices-container">
-                <div class="laptop-mockup">
-                    <div class="laptop-screen">
-                        <div class="ui-header">
-                            <span>⭐ باشگاه ستارگان</span>
-                            <span>⏰ 12:09:27 | متصل | فعال</span>
-                        </div>
-                        <div class="ui-body">
-                            <div class="ui-sidebar">
-                                <div class="ui-menu">🏠 صفحه اصلی</div>
-                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
-                                <div class="ui-menu">✅ حضور و غیاب</div>
-                                <div class="ui-menu">💰 امور مالی</div>
-                                <div class="ui-menu">📅 کلاس‌ها</div>
-                                <div class="ui-menu active">📊 گزارش‌گیری</div>
-                            </div>
-                            <div class="ui-main">
-                                <div class="ui-report-grid">
-                                    <div class="ui-report-btn">📄 لیست اعضا (PDF)</div>
-                                    <div class="ui-report-btn">📊 گزارش مالی (PDF)</div>
-                                    <div class="ui-report-btn">✅ حضور و غیاب (Excel)</div>
-                                    <div class="ui-report-btn">📈 گزارش کامل (PDF)</div>
+                                <div class="ui-main">
+                                    <div class="ui-form">
+                                        <div class="ui-input">نام کلاس: سانس کوچیک ها</div>
+                                        <div class="ui-input">رشته: کیک بوکسینگ</div>
+                                        <div class="ui-input">مربی: مهدی صالح زاده</div>
+                                        <div class="ui-input">شهریه (تومان): 1,500,000</div>
+                                        <div class="ui-input">جنسیت: آقایان</div>
+                                        <div class="ui-input">ظرفیت: 2</div>
+                                    </div>
+                                    <div class="ui-btn-group">
+                                        <div class="ui-btn yellow">➕ افزودن کلاس</div>
+                                        <div class="ui-btn yellow">✏️ ویرایش</div>
+                                        <div class="ui-btn red">🗑️ حذف</div>
+                                        <div class="ui-btn gray">لغو</div>
+                                    </div>
+                                    <table class="ui-table">
+                                        <tr><th>ID</th><th>نام کلاس</th><th>رشته</th><th>مربی</th><th>شهریه</th><th>ظرفیت</th><th>تعداد اعضا</th></tr>
+                                        <tr><td>2</td><td>سانس کوچیک ها</td><td>کیک بوکسینگ</td><td>مهدی صالح زاده</td><td>1,500,000</td><td>2</td><td>2</td></tr>
+                                        <tr><td>1</td><td>کیک</td><td>کیک</td><td>مهدی</td><td>1,500,000</td><td>0</td><td>2</td></tr>
+                                    </table>
                                 </div>
-                                <div class="ui-filter">فیلتر کلاس: همه</div>
                             </div>
                         </div>
+                        <div class="laptop-base"></div>
                     </div>
-                    <div class="laptop-base"></div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ۹ — مخاطبین و بازار -->
-<section class="slide">
-    <h2 class="slide-title">🎯 مخاطبین و بازار هدف ما</h2>
-    <div class="market-grid">
-        <div class="market-card">
-            <div class="market-icon">🏋️</div>
-            <div class="market-title">باشگاه‌های ورزشی</div>
-            <div class="market-desc">باشگاه‌های بدنسازی، کراس‌فیت، رزمی و... که به دنبال مدیریت یکپارچه اعضا، مالی و کلاس‌ها هستند.</div>
-        </div>
-        <div class="market-card">
-            <div class="market-icon">🏫</div>
-            <div class="market-title">آموزشگاه‌ها</div>
-            <div class="market-desc">آموزشگاه‌های ورزشی، هنری و علمی که نیاز به سیستم حضور و غیاب دقیق و مدیریت شهریه دارند.</div>
-        </div>
-        <div class="market-card">
-            <div class="market-icon">🏨</div>
-            <div class="market-title">مراکز اقامتی و رفاهی</div>
-            <div class="market-desc">هتل‌ها، اقامتگاه‌ها و مجتمع‌های ورزشی که به مدیریت رزرو، پرسنل و امور مالی نیاز دارند.</div>
-        </div>
-    </div>
-</section>
-
-<!-- ۱۰ — رقیب ها -->
-<section class="slide">
-    <h2 class="slide-title">🏆 مقایسه با رقبا و روش‌های سنتی</h2>
-    <div class="compare-grid">
-        <div class="compare-col mine">
-            <div class="compare-head">⭐ پالس مدیریت</div>
-            <div class="compare-list">
-                <div class="compare-row"><span class="compare-name">کار در قطعی اینترنت</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">دسترسی از موبایل</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">پورتال اختصاصی اعضا</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">پیام‌رسان داخلی</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">گزارش‌های دقیق</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">همگام‌سازی ابری</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">امنیت اطلاعات</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+    <!-- ۷ — توضیحات فنی: حضور و غیاب -->
+    <section class="slide">
+        <div class="feature-slide-layout">
+            <div class="feature-text-side">
+                <div class="feature-badge">✅ توضیحات فنی — حضور و غیاب</div>
+                <h2 class="feature-heading">ثبت یک‌کلیکی، گزارش لحظه‌ای</h2>
+                <p class="feature-desc">دیگر نیازی به دفتر و خودکار نیست. با یک کلیک حضور و غیاب اعضا را ثبت کنید و گزارش دقیق آن را در لحظه دریافت کنید.</p>
+                <ul class="feature-list">
+                    <li><span class="icon">✅</span> رابط کاربری ساده برای ثبت سریع</li>
+                    <li><span class="icon">✅</span> ثبت وضعیت (حاضر، غایب، تاخیر، مرخصی)</li>
+                    <li><span class="icon">✅</span> محاسبه خودکار آمار حضور برای هر عضو</li>
+                </ul>
             </div>
-        </div>
-        <div class="compare-col">
-            <div class="compare-head">💼 نرم‌افزار رایج</div>
-            <div class="compare-list">
-                <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
-                <div class="compare-row"><span class="compare-name">پورتال اعضا</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">پیام‌رسان</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">گزارش دقیق</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
-                <div class="compare-row"><span class="compare-name">همگام ابری</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">امنیت</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
-            </div>
-        </div>
-        <div class="compare-col">
-            <div class="compare-head">📝 دفتر و کاغذ</div>
-            <div class="compare-list">
-                <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
-                <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">پورتال اعضا</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">پیام‌رسان</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">گزارش دقیق</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">همگام ابری</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-                <div class="compare-row"><span class="compare-name">امنیت</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ۱۱ — ROADMAP -->
-<section class="slide">
-    <h2 class="slide-title">🚀 فرایند ارتقاء در آینده</h2>
-    <div class="roadmap-timeline">
-        <div class="roadmap-phase phase-1">
-            <div class="phase-badge">فاز ۱</div>
-            <div class="phase-period">۳ ماه اول</div>
-            <div class="phase-icon">🌱</div>
-            <div class="phase-title">شروع و اعتبارسنجی</div>
-            <ul class="phase-items">
-                <li>🎯 جذب ۱۰ مشتری اول</li>
-                <li>📚 تولید ویدیوی آموزشی</li>
-                <li>🔧 دریافت بازخورد کاربران</li>
-                <li>📝 بهبود مستمر رابط کاربری</li>
-            </ul>
-        </div>
-        <div class="roadmap-line-h"></div>
-        <div class="roadmap-phase phase-2">
-            <div class="phase-badge">فاز ۲</div>
-            <div class="phase-period">۶ ماه</div>
-            <div class="phase-icon">📈</div>
-            <div class="phase-title">گسترش امکانات</div>
-            <ul class="phase-items">
-                <li>💳 درگاه پرداخت آنلاین</li>
-                <li>📱 اپلیکیشن اختصاصی موبایل</li>
-                <li>🤖 تحلیل هوشمند با AI</li>
-                <li>🎯 جذب ۵۰ مشتری</li>
-            </ul>
-        </div>
-        <div class="roadmap-line-h"></div>
-        <div class="roadmap-phase phase-3">
-            <div class="phase-badge">فاز ۳</div>
-            <div class="phase-period">۹ ماه</div>
-            <div class="phase-icon">🌍</div>
-            <div class="phase-title">ورود به بازارهای جدید</div>
-            <ul class="phase-items">
-                <li>🏫 ورود به مدارس و آموزشگاه‌ها</li>
-                <li>🏨 مدیریت هتل و اقامتگاه</li>
-                <li>🌐 ارائه نسخه انگلیسی</li>
-                <li>🎯 جذب ۲۰۰ مشتری</li>
-            </ul>
-        </div>
-        <div class="roadmap-line-h"></div>
-        <div class="roadmap-phase phase-4">
-            <div class="phase-badge">فاز ۴</div>
-            <div class="phase-period">۱ سال</div>
-            <div class="phase-icon">🏆</div>
-            <div class="phase-title">رشد و بین‌المللی‌شدن</div>
-            <ul class="phase-items">
-                <li>☁️ زیرساخت ابری اختصاصی</li>
-                <li>🌐 ورود به بازار کشورهای همسایه</li>
-                <li>👥 تشکیل تیم ۵ نفره</li>
-                <li>🎯 جذب ۱۰۰۰ مشتری</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<!-- ۱۲ — QR -->
-<section class="slide">
-    <div class="qr-layout">
-        <div class="qr-section">
-            <div class="qr-frame">
-                <div class="qr-header">📱 اسکن کنید</div>
-                <div class="qr-img-box">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=15&data=https%3A%2F%2Filyasalehzade6-wq.github.io%2Fpulse-landing%2F" alt="QR" class="qr-img">
+            <div class="hero-devices-side">
+                <div class="devices-container">
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen">
+                            <div class="ui-header">
+                                <span>⭐ باشگاه ستارگان</span>
+                                <span>⏰ 12:07:57 | متصل | فعال</span>
+                            </div>
+                            <div class="ui-body">
+                                <div class="ui-sidebar">
+                                    <div class="ui-menu">🏠 صفحه اصلی</div>
+                                    <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                    <div class="ui-menu active">✅ حضور و غیاب</div>
+                                    <div class="ui-menu">💰 امور مالی</div>
+                                    <div class="ui-menu">📅 کلاس‌ها</div>
+                                    <div class="ui-menu">🏆 رتبه‌بندی</div>
+                                </div>
+                                <div class="ui-main">
+                                    <div class="ui-att-header">
+                                        <span>تاریخ: 1405/07/16</span>
+                                        <span>کلاس: سانس کوچیک ها</span>
+                                        <span class="ui-att-badge green">حاضر: 0</span>
+                                        <span class="ui-att-badge red">غایب: 0</span>
+                                        <span class="ui-att-badge yellow">تاخیر: 0</span>
+                                    </div>
+                                    <table class="ui-table">
+                                        <tr><th>ردیف</th><th>نام</th><th>نام خانوادگی</th><th>حاضر</th><th>غایب</th><th>تاخیر</th><th>توضیحات</th></tr>
+                                        <tr>
+                                            <td>1</td><td>مهدی</td><td>امینی</td>
+                                            <td><div class="ui-radio active"></div></td>
+                                            <td><div class="ui-radio"></div></td>
+                                            <td><div class="ui-radio"></div></td>
+                                            <td><div class="ui-input" style="height: 12px;"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td><td>ایلیا</td><td>صالح زاده</td>
+                                            <td><div class="ui-radio"></div></td>
+                                            <td><div class="ui-radio active" style="border-color: #e74c3c; background: #e74c3c;"></div></td>
+                                            <td><div class="ui-radio"></div></td>
+                                            <td><div class="ui-input" style="height: 12px;"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="laptop-base"></div>
+                    </div>
                 </div>
-                <div class="qr-footer">🌐 pulse-landing</div>
-            </div>
-            <p class="qr-text">
-                📖 برای اطلاعات بیشتر<br>
-                <span class="hl">به این سایت مراجعه نمایید</span>
-            </p>
-            <div class="qr-arrow">👇</div>
-        </div>
-        <div class="brand-side">
-            <div class="brand-logo">⭐</div>
-            <h1 class="brand-name">پالس مدیریت</h1>
-            <p class="brand-tag">سیستم هوشمند<br>مدیریت باشگاه‌های ورزشی</p>
-            <div class="brand-divider"></div>
-            <p class="brand-msg">آماده‌ایم تا باشگاه شما را<br>به سطح بعدی ببریم</p>
-            <div class="brand-contacts">
-                <a href="tel:09137704340" class="contact-badge"><span>📱</span><span style="direction:ltr">09137704340</span></a>
-                <div class="contact-badge"><span>💬</span><span style="direction:ltr">@Pulsmanagersaport</span></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- ۸ — توضیحات فنی: گزارش‌گیری -->
+    <section class="slide">
+        <div class="feature-slide-layout">
+            <div class="feature-text-side">
+                <div class="feature-badge">📊 توضیحات فنی — گزارش‌گیری حرفه‌ای</div>
+                <h2 class="feature-heading">خروجی‌های دقیق برای مدیریت بهتر</h2>
+                <p class="feature-desc">با یک کلیک، گزارش‌های مالی، لیست اعضا و حضور و غیاب را به صورت PDF یا Excel دریافت کنید. همه چیز آماده برای ارائه به شرکا یا بایگانی.</p>
+                <ul class="feature-list">
+                    <li><span class="icon">✅</span> خروجی PDF و Excel از تمام بخش‌ها</li>
+                    <li><span class="icon">✅</span> فیلتر کردن گزارشات بر اساس کلاس</li>
+                    <li><span class="icon">✅</span> گزارش‌های مالی دقیق برای حسابداری</li>
+                </ul>
+            </div>
+            <div class="hero-devices-side">
+                <div class="devices-container">
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen">
+                            <div class="ui-header">
+                                <span>⭐ باشگاه ستارگان</span>
+                                <span>⏰ 12:09:27 | متصل | فعال</span>
+                            </div>
+                            <div class="ui-body">
+                                <div class="ui-sidebar">
+                                    <div class="ui-menu">🏠 صفحه اصلی</div>
+                                    <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                    <div class="ui-menu">✅ حضور و غیاب</div>
+                                    <div class="ui-menu">💰 امور مالی</div>
+                                    <div class="ui-menu">📅 کلاس‌ها</div>
+                                    <div class="ui-menu active">📊 گزارش‌گیری</div>
+                                </div>
+                                <div class="ui-main">
+                                    <div class="ui-report-grid">
+                                        <div class="ui-report-btn">📄 لیست اعضا (PDF)</div>
+                                        <div class="ui-report-btn">📊 گزارش مالی (PDF)</div>
+                                        <div class="ui-report-btn">✅ حضور و غیاب (Excel)</div>
+                                        <div class="ui-report-btn">📈 گزارش کامل (PDF)</div>
+                                    </div>
+                                    <div class="ui-filter">فیلتر کلاس: همه</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="laptop-base"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ۹ — مخاطبین و بازار -->
+    <section class="slide">
+        <h2 class="slide-title">🎯 مخاطبین و بازار هدف ما</h2>
+        <div class="market-grid">
+            <div class="market-card">
+                <div class="market-icon">🏋️</div>
+                <div class="market-title">باشگاه‌های ورزشی</div>
+                <div class="market-desc">باشگاه‌های بدنسازی، کراس‌فیت، رزمی و... که به دنبال مدیریت یکپارچه اعضا، مالی و کلاس‌ها هستند.</div>
+            </div>
+            <div class="market-card">
+                <div class="market-icon">🏫</div>
+                <div class="market-title">آموزشگاه‌ها</div>
+                <div class="market-desc">آموزشگاه‌های ورزشی، هنری و علمی که نیاز به سیستم حضور و غیاب دقیق و مدیریت شهریه دارند.</div>
+            </div>
+            <div class="market-card">
+                <div class="market-icon">🏨</div>
+                <div class="market-title">مراکز اقامتی و رفاهی</div>
+                <div class="market-desc">هتل‌ها، اقامتگاه‌ها و مجتمع‌های ورزشی که به مدیریت رزرو، پرسنل و امور مالی نیاز دارند.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ۱۰ — رقیب ها -->
+    <section class="slide">
+        <h2 class="slide-title">🏆 مقایسه با رقبا و روش‌های سنتی</h2>
+        <div class="compare-grid">
+            <div class="compare-col mine">
+                <div class="compare-head">⭐ پالس مدیریت</div>
+                <div class="compare-list">
+                    <div class="compare-row"><span class="compare-name">کار در قطعی اینترنت</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">دسترسی از موبایل</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">پورتال اختصاصی اعضا</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">پیام‌رسان داخلی</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">گزارش‌های دقیق</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">همگام‌سازی ابری</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">امنیت اطلاعات</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                </div>
+            </div>
+            <div class="compare-col">
+                <div class="compare-head">💼 نرم‌افزار رایج</div>
+                <div class="compare-list">
+                    <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
+                    <div class="compare-row"><span class="compare-name">پورتال اعضا</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">پیام‌رسان</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">گزارش دقیق</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
+                    <div class="compare-row"><span class="compare-name">همگام ابری</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">امنیت</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
+                </div>
+            </div>
+            <div class="compare-col">
+                <div class="compare-head">📝 دفتر و کاغذ</div>
+                <div class="compare-list">
+                    <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                    <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">پورتال اعضا</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">پیام‌رسان</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">گزارش دقیق</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">همگام ابری</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                    <div class="compare-row"><span class="compare-name">امنیت</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ۱۱ — ROADMAP -->
+    <section class="slide">
+        <h2 class="slide-title">🚀 فرایند ارتقاء در آینده</h2>
+        <div class="roadmap-timeline">
+            <div class="roadmap-phase phase-1">
+                <div class="phase-badge">فاز ۱</div>
+                <div class="phase-period">۳ ماه اول</div>
+                <div class="phase-icon">🌱</div>
+                <div class="phase-title">شروع و اعتبارسنجی</div>
+                <ul class="phase-items">
+                    <li>🎯 جذب ۱۰ مشتری اول</li>
+                    <li>📚 تولید ویدیوی آموزشی</li>
+                    <li>🔧 دریافت بازخورد کاربران</li>
+                    <li>📝 بهبود مستمر رابط کاربری</li>
+                </ul>
+            </div>
+            <div class="roadmap-line-h"></div>
+            <div class="roadmap-phase phase-2">
+                <div class="phase-badge">فاز ۲</div>
+                <div class="phase-period">۶ ماه</div>
+                <div class="phase-icon">📈</div>
+                <div class="phase-title">گسترش امکانات</div>
+                <ul class="phase-items">
+                    <li>💳 درگاه پرداخت آنلاین</li>
+                    <li>📱 اپلیکیشن اختصاصی موبایل</li>
+                    <li>🤖 تحلیل هوشمند با AI</li>
+                    <li>🎯 جذب ۵۰ مشتری</li>
+                </ul>
+            </div>
+            <div class="roadmap-line-h"></div>
+            <div class="roadmap-phase phase-3">
+                <div class="phase-badge">فاز ۳</div>
+                <div class="phase-period">۹ ماه</div>
+                <div class="phase-icon">🌍</div>
+                <div class="phase-title">ورود به بازارهای جدید</div>
+                <ul class="phase-items">
+                    <li>🏫 ورود به مدارس و آموزشگاه‌ها</li>
+                    <li>🏨 مدیریت هتل و اقامتگاه</li>
+                    <li>🌐 ارائه نسخه انگلیسی</li>
+                    <li>🎯 جذب ۲۰۰ مشتری</li>
+                </ul>
+            </div>
+            <div class="roadmap-line-h"></div>
+            <div class="roadmap-phase phase-4">
+                <div class="phase-badge">فاز ۴</div>
+                <div class="phase-period">۱ سال</div>
+                <div class="phase-icon">🏆</div>
+                <div class="phase-title">رشد و بین‌المللی‌شدن</div>
+                <ul class="phase-items">
+                    <li>☁️ زیرساخت ابری اختصاصی</li>
+                    <li>🌐 ورود به بازار کشورهای همسایه</li>
+                    <li>👥 تشکیل تیم ۵ نفره</li>
+                    <li>🎯 جذب ۱۰۰۰ مشتری</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ۱۲ — QR -->
+    <section class="slide">
+        <div class="qr-layout">
+            <div class="qr-section">
+                <div class="qr-frame">
+                    <div class="qr-header">📱 اسکن کنید</div>
+                    <div class="qr-img-box">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=15&data=https%3A%2F%2Filyasalehzade6-wq.github.io%2Fpulse-landing%2F" alt="QR" class="qr-img">
+                    </div>
+                    <div class="qr-footer">🌐 pulse-landing</div>
+                </div>
+                <p class="qr-text">
+                    📖 برای اطلاعات بیشتر<br>
+                    <span class="hl">به این سایت مراجعه نمایید</span>
+                </p>
+                <div class="qr-arrow">👇</div>
+            </div>
+            <div class="brand-side">
+                <div class="brand-logo">⭐</div>
+                <h1 class="brand-name">پالس مدیریت</h1>
+                <p class="brand-tag">سیستم هوشمند<br>مدیریت باشگاه‌های ورزشی</p>
+                <div class="brand-divider"></div>
+                <p class="brand-msg">آماده‌ایم تا باشگاه شما را<br>به سطح بعدی ببریم</p>
+                <div class="brand-contacts">
+                    <a href="tel:09137704340" class="contact-badge"><span>📱</span><span style="direction:ltr">09137704340</span></a>
+                    <div class="contact-badge"><span>💬</span><span style="direction:ltr">@Pulsmanagersaport</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div> <!-- End slides-wrapper -->
 
 <script>
-const slides = document.querySelectorAll('.slide');
-const total = slides.length;
-let cur = 0;
+    const wrapper = document.querySelector('.slides-wrapper');
+    const slides = document.querySelectorAll('.slide');
+    const totalPages = slides.length;
+    const counterText = document.getElementById('pageCounterText');
+    
+    // Initial counter setup
+    counterText.textContent = `1 / ${totalPages}`;
 
-function go(i) {
-    slides.forEach(s => s.classList.remove('active'));
-    slides[i].classList.add('active');
-    cur = i;
-}
+    // IntersectionObserver to update page counter accurately
+    const observerOptions = {
+        root: wrapper,
+        threshold: 0.5 // Trigger when 50% of the slide is visible
+    };
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { if (cur < total - 1) go(cur + 1); }
-    else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { if (cur > 0) go(cur - 1); }
-});
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const index = Array.from(slides).indexOf(entry.target);
+                counterText.textContent = `${index + 1} / ${totalPages}`;
+            }
+        });
+    }, observerOptions);
+
+    slides.forEach(slide => observer.observe(slide));
+
+    // Keyboard Navigation (for laptops/desktops)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+            // Move to next slide (in RTL, next slide is to the left, so scrollLeft decreases)
+            wrapper.scrollBy({ left: -wrapper.clientWidth, behavior: 'smooth' });
+        } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+            // Move to previous slide
+            wrapper.scrollBy({ left: wrapper.clientWidth, behavior: 'smooth' });
+        }
+    });
 </script>
 </body>
 </html>
