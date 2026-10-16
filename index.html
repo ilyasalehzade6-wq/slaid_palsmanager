@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pitch Deck — پالس مدیریت</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -28,26 +27,6 @@ body {
 }
 .bg-gold { width: 700px; height: 700px; background: #f1c40f; top: -250px; right: -250px; }
 .bg-blue { width: 600px; height: 600px; background: #3498db; bottom: -200px; left: -200px; }
-
-.controls { position: fixed; top: 20px; left: 20px; z-index: 9999; display: flex; gap: 12px; }
-
-.btn {
-    background: linear-gradient(135deg, #f1c40f, #d4ac0d);
-    color: #0a0a14; border: none;
-    padding: 12px 22px; border-radius: 12px;
-    font-family: "Vazirmatn", sans-serif;
-    font-weight: 700; font-size: 14px; cursor: pointer;
-    box-shadow: 0 4px 20px rgba(241, 196, 15, 0.35);
-}
-.btn:hover { transform: translateY(-2px); }
-.btn-secondary { background: transparent; color: #f1c40f; border: 2px solid #f1c40f; }
-
-.page-counter {
-    position: fixed; top: 20px; right: 20px; z-index: 9999;
-    background: rgba(26, 26, 46, 0.95); color: #f1c40f;
-    padding: 12px 22px; border-radius: 14px;
-    font-weight: 800; font-size: 17px; border: 2px solid #f1c40f;
-}
 
 .slide {
     width: 100vw; height: 100vh;
@@ -730,15 +709,6 @@ body {
 <div class="bg-glow bg-gold"></div>
 <div class="bg-glow bg-blue"></div>
 
-<div class="controls">
-    <button class="btn" onclick="exportPPTX()">📥 دانلود PowerPoint</button>
-    <button class="btn btn-secondary" onclick="window.print()">📄 PDF</button>
-</div>
-
-<div class="page-counter">
-    <span id="currentPage">1</span> / <span id="totalPages">12</span>
-</div>
-
 <!-- ۱ — مشکل -->
 <section class="slide active">
     <h2 class="slide-title">🚨 مشکلات امروز باشگاه‌ها</h2>
@@ -1318,13 +1288,11 @@ body {
 <script>
 const slides = document.querySelectorAll('.slide');
 const total = slides.length;
-document.getElementById('totalPages').textContent = total;
 let cur = 0;
 
 function go(i) {
     slides.forEach(s => s.classList.remove('active'));
     slides[i].classList.add('active');
-    document.getElementById('currentPage').textContent = i + 1;
     cur = i;
 }
 
@@ -1332,220 +1300,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { if (cur < total - 1) go(cur + 1); }
     else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { if (cur > 0) go(cur - 1); }
 });
-
-async function exportPPTX() {
-    const btn = event.target;
-    const orig = btn.textContent;
-    btn.textContent = '⏳ در حال ساخت...';
-    btn.disabled = true;
-
-    try {
-        const pptx = new PptxGenJS();
-        pptx.layout = 'LAYOUT_16x9';
-        const C = { bg: '0A0A14', dark: '1A1A2E', dark2: '2D1F4D', gold: 'F1C40F', red: 'E74C3C', green: '2ECC71', blue: '3498DB', text: 'E8E8F0', gray: '95A5A6' };
-        const F = 'Tahoma';
-
-        // Slide 1: Problem
-        let s1 = pptx.addSlide();
-        s1.background = { color: C.bg };
-        s1.addText('🚨 مشکلات امروز باشگاه‌ها', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.red, fontFace: F });
-        [['💸', '۷۰٪', 'اقساط فراموش'], ['📝', '۸۵٪', 'اطلاعات پراکنده'], ['🕐', '۵+ ساعت', 'کار دستی']].forEach((p, i) => {
-            const x = 6.7 - i * 3.1;
-            s1.addShape(pptx.ShapeType.roundRect, { x: x, y: 1.5, w: 2.8, h: 3.6, fill: { color: '2A1515' }, line: { color: C.red, width: 2 }, rectRadius: 0.2 });
-            s1.addText(p[0], { x: x, y: 1.7, w: 2.8, h: 1.2, fontSize: 50, align: 'center' });
-            s1.addText(p[1], { x: x, y: 3, w: 2.8, h: 1, fontSize: 34, bold: true, align: 'center', color: C.red, fontFace: F });
-            s1.addText(p[2], { x: x, y: 4.1, w: 2.8, h: 0.6, fontSize: 14, bold: true, align: 'center', color: C.text, fontFace: F });
-        });
-
-        // Slide 2: Solution
-        let s2 = pptx.addSlide();
-        s2.background = { color: C.bg };
-        s2.addText('✨ راه‌حل ما — فرایند کامل', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.green, fontFace: F });
-        [['۱', '📝', 'ثبت سریع'], ['۲', '🛡️', 'ذخیره محلی'], ['۳', '🔄', 'همگام‌سازی'], ['۴', '📱', 'دسترسی همه‌جا']].forEach((f, i) => {
-            const x = 7.4 - i * 2.3;
-            s2.addShape(pptx.ShapeType.roundRect, { x: x, y: 2, w: 2.1, h: 3.5, fill: { color: '1A2A1E' }, line: { color: C.green, width: 2 }, rectRadius: 0.2 });
-            s2.addShape(pptx.ShapeType.ellipse, { x: x + 1.6, y: 1.85, w: 0.6, h: 0.6, fill: { color: C.green } });
-            s2.addText(f[0], { x: x + 1.6, y: 1.85, w: 0.6, h: 0.6, fontSize: 16, bold: true, align: 'center', valign: 'middle', color: C.bg, fontFace: F });
-            s2.addText(f[1], { x: x, y: 2.5, w: 2.1, h: 1.2, fontSize: 46, align: 'center' });
-            s2.addText(f[2], { x: x, y: 3.8, w: 2.1, h: 0.6, fontSize: 15, bold: true, align: 'center', color: C.green, fontFace: F });
-        });
-
-        // Slide 3: Intro (Hero)
-        let s3 = pptx.addSlide();
-        s3.background = { color: C.bg };
-        s3.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 0.8, w: 0.9, h: 0.9, fill: { color: C.blue }, rectRadius: 0.2 });
-        s3.addText('💓', { x: 0.5, y: 0.9, w: 0.9, h: 0.7, fontSize: 32, align: 'center', color: 'FFFFFF' });
-        s3.addText('پالس مدیریت', { x: 1.6, y: 0.9, w: 5, h: 0.8, fontSize: 38, bold: true, color: C.gold, fontFace: F });
-        s3.addText('مدیریت یکپارچه، ساده و هوشمند', { x: 0.5, y: 2, w: 6, h: 0.5, fontSize: 20, bold: true, color: C.text, fontFace: F });
-        s3.addText('برای مجموعه‌های ورزشی و آموزشی', { x: 0.5, y: 2.6, w: 6, h: 0.5, fontSize: 14, color: C.gray, fontFace: F });
-        [['🇮🇷', 'کاملاً فارسی', 0.5], ['☁️', 'ابری و آفلاین', 2], ['👥', 'پورتال اعضا', 3.5], ['🛡️', 'امنیت', 5]].forEach(f => {
-            s3.addShape(pptx.ShapeType.roundRect, { x: f[2], y: 4.2, w: 1.4, h: 1.2, fill: { color: C.dark2 }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
-            s3.addText(f[0], { x: f[2], y: 4.3, w: 1.4, h: 0.6, fontSize: 24, align: 'center' });
-            s3.addText(f[1], { x: f[2], y: 4.9, w: 1.4, h: 0.4, fontSize: 10, bold: true, align: 'center', color: C.text, fontFace: F });
-        });
-        s3.addShape(pptx.ShapeType.roundRect, { x: 6.8, y: 1.3, w: 6, h: 5, fill: { color: C.dark }, line: { color: C.gold, width: 3 }, rectRadius: 0.2 });
-        s3.addText('⭐ پالس مدیریت', { x: 6.8, y: 1.5, w: 6, h: 0.5, fontSize: 14, bold: true, color: C.gold, fontFace: F, align: 'center' });
-        s3.addText('👥 ۲۴۷', { x: 7.1, y: 2.3, w: 1.7, h: 1, fontSize: 14, bold: true, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.blue }, fontFace: F });
-        s3.addText('💰 ۴۸M', { x: 8.95, y: 2.3, w: 1.7, h: 1, fontSize: 14, bold: true, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.green }, fontFace: F });
-        s3.addText('✅ ۱۸۹', { x: 10.8, y: 2.3, w: 1.7, h: 1, fontSize: 14, bold: true, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: '9B59B6' }, fontFace: F });
-
-        // Slide 4: Features
-        let s4 = pptx.addSlide();
-        s4.background = { color: C.bg };
-        s4.addText('🎯 به چه دردی می‌خوره؟ (ویژگی‌ها)', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
-        [['👥', 'اعضا'], ['✅', 'حضور'], ['💰', 'مالی'], ['📅', 'کلاس‌ها'], ['💬', 'پیام'], ['📊', 'گزارش'], ['🔔', 'اطلاع'], ['🎁', 'کیف پول'], ['🥤', 'بوفه'], ['👔', 'کارکنان'], ['🏆', 'رتبه'], ['🎫', 'کارت']].forEach((f, i) => {
-            const r = Math.floor(i / 4), c2 = i % 4;
-            const x = 7.4 - c2 * 2.3, y = 1.5 + r * 1.8;
-            s4.addShape(pptx.ShapeType.roundRect, { x: x, y: y, w: 2.1, h: 1.5, fill: { color: C.dark }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
-            s4.addText(f[0], { x: x, y: y + 0.15, w: 2.1, h: 0.7, fontSize: 34, align: 'center' });
-            s4.addText(f[1], { x: x, y: y + 0.85, w: 2.1, h: 0.5, fontSize: 13, bold: true, align: 'center', color: C.gold, fontFace: F });
-        });
-
-        // Slide 5: Tech - Dashboard
-        let s5 = pptx.addSlide();
-        s5.background = { color: C.bg };
-        s5.addText('💰 توضیحات فنی — امور مالی و داشبورد', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
-        s5.addText('تصمیم‌گیری بر اساس داده‌ها، نه حدس و گمان', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
-        s5.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
-        s5.addText('⭐ باشگاه ستارگان | ⏰ 12:08:33', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
-        s5.addShape(pptx.ShapeType.rect, { x: 0.7, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.blue } });
-        s5.addText('۶\nکل ورزشکاران', { x: 0.7, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fontFace: F });
-        s5.addShape(pptx.ShapeType.rect, { x: 2.8, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.green } });
-        s5.addText('۵\nفعال', { x: 2.8, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fontFace: F });
-        s5.addShape(pptx.ShapeType.rect, { x: 4.9, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.red } });
-        s5.addText('۱\nغیرفعال', { x: 4.9, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fontFace: F });
-        s5.addShape(pptx.ShapeType.rect, { x: 7.0, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.gold } });
-        s5.addText('۲\nکلاس‌ها', { x: 7.0, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fontFace: F });
-        s5.addText('📊 گزارش مالی', { x: 0.7, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s5.addText('💳 دریافت شهریه', { x: 2.8, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s5.addText('📝 ثبت مخارج', { x: 4.9, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s5.addText('📅 مدیریت اقساط', { x: 7.0, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s5.addText('آخرین تراکنش‌ها', { x: 0.7, y: 3.9, w: 8.6, h: 0.3, fontSize: 10, color: C.gold, fontFace: F });
-        s5.addTable([
-            [{ text: 'نوع', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'مبلغ', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'تاریخ', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'توضیحات', options: { bold: true, color: C.gold, fill: C.dark } }],
-            ['دریافت', '۱,۵۰۰,۰۰۰', '1405/07/16', 'شهریه مهدی']
-        ], { x: 0.7, y: 4.2, w: 8.6, h: 0.8, colW: [2, 2, 2, 2.6], fontSize: 10, align: 'center', valign: 'middle', fontFace: F, color: C.text, fill: { color: C.dark }, border: { type: 'solid', color: '2C3E50', pt: 1 } });
-
-        // Slide 6: Tech - Classes
-        let s6 = pptx.addSlide();
-        s6.background = { color: C.bg };
-        s6.addText('📅 توضیحات فنی — مدیریت کلاس‌ها', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
-        s6.addText('برنامه‌ریزی هوشمند، بدون تداخل', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
-        s6.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
-        s6.addText('⭐ باشگاه ستارگان | ⏰ 12:08:55', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
-        s6.addText('نام کلاس: سانس کوچیک ها', { x: 0.7, y: 2.2, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
-        s6.addText('رشته: کیک بوکسینگ', { x: 5.0, y: 2.2, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
-        s6.addText('مربی: مهدی صالح زاده', { x: 0.7, y: 2.8, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
-        s6.addText('شهریه: 1,500,000', { x: 5.0, y: 2.8, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
-        s6.addText('جنسیت: آقایان', { x: 0.7, y: 3.4, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
-        s6.addText('ظرفیت: 2', { x: 5.0, y: 3.4, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
-        s6.addText('افزودن کلاس', { x: 0.7, y: 4.1, w: 1.5, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s6.addText('ویرایش', { x: 2.4, y: 4.1, w: 1.5, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s6.addText('حذف', { x: 4.1, y: 4.1, w: 1.5, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.red }, fontFace: F });
-
-        // Slide 7: Tech - Attendance
-        let s7 = pptx.addSlide();
-        s7.background = { color: C.bg };
-        s7.addText('✅ توضیحات فنی — حضور و غیاب', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
-        s7.addText('ثبت یک‌کلیکی، گزارش لحظه‌ای', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
-        s7.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
-        s7.addText('⭐ باشگاه ستارگان | ⏰ 12:07:57', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
-        s7.addText('تاریخ: 1405/07/16 | کلاس: سانس کوچیک ها', { x: 0.7, y: 2.0, w: 8.6, h: 0.3, fontSize: 10, color: C.gray, fontFace: F });
-        s7.addText('حاضر: 0', { x: 0.7, y: 2.4, w: 1.5, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.green }, fontFace: F });
-        s7.addText('غایب: 0', { x: 2.4, y: 2.4, w: 1.5, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.red }, fontFace: F });
-        s7.addText('تاخیر: 0', { x: 4.1, y: 2.4, w: 1.5, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s7.addTable([
-            [{ text: 'ردیف', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'نام', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'نام خانوادگی', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'حاضر', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'غایب', options: { bold: true, color: C.gold, fill: C.dark } }],
-            ['1', 'مهدی', 'امینی', '✅', '❌'],
-            ['2', 'ایلیا', 'صالح زاده', '❌', '✅']
-        ], { x: 0.7, y: 3.2, w: 8.6, h: 1.5, colW: [1.5, 2, 2, 1.5, 1.6], fontSize: 10, align: 'center', valign: 'middle', fontFace: F, color: C.text, fill: { color: C.dark }, border: { type: 'solid', color: '2C3E50', pt: 1 } });
-
-        // Slide 8: Tech - Reporting
-        let s8 = pptx.addSlide();
-        s8.background = { color: C.bg };
-        s8.addText('📊 توضیحات فنی — گزارش‌گیری حرفه‌ای', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
-        s8.addText('خروجی‌های دقیق برای مدیریت بهتر', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
-        s8.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
-        s8.addText('⭐ باشگاه ستارگان | ⏰ 12:09:27', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
-        s8.addText('📄 لیست اعضا (PDF)', { x: 0.7, y: 2.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s8.addText('📊 گزارش مالی (PDF)', { x: 5.0, y: 2.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s8.addText('✅ حضور و غیاب (Excel)', { x: 0.7, y: 3.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s8.addText('📈 گزارش کامل (PDF)', { x: 5.0, y: 3.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
-        s8.addText('فیلتر کلاس: همه', { x: 0.7, y: 4.2, w: 8.6, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: C.gray, fill: { color: C.dark2 }, fontFace: F });
-
-        // Slide 9: Target Market
-        let s9 = pptx.addSlide();
-        s9.background = { color: C.bg };
-        s9.addText('🎯 مخاطبین و بازار هدف ما', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
-        [['🏋️', 'باشگاه‌های ورزشی', 'مدیریت یکپارچه اعضا، مالی و کلاس‌ها'], ['🏫', 'آموزشگاه‌ها', 'سیستم حضور و غیاب دقیق و مدیریت شهریه'], ['🏨', 'مراکز اقامتی', 'مدیریت رزرو، پرسنل و امور مالی']].forEach((p, i) => {
-            const x = 6.7 - i * 3.1;
-            s9.addShape(pptx.ShapeType.roundRect, { x: x, y: 1.5, w: 2.8, h: 3.6, fill: { color: C.dark }, line: { color: C.blue, width: 2 }, rectRadius: 0.2 });
-            s9.addText(p[0], { x: x, y: 1.7, w: 2.8, h: 1.2, fontSize: 50, align: 'center' });
-            s9.addText(p[1], { x: x, y: 3, w: 2.8, h: 1, fontSize: 18, bold: true, align: 'center', color: C.blue, fontFace: F });
-            s9.addText(p[2], { x: x, y: 4.1, w: 2.8, h: 0.6, fontSize: 11, align: 'center', color: C.text, fontFace: F });
-        });
-
-        // Slide 10: Competitors
-        let s10 = pptx.addSlide();
-        s10.background = { color: C.bg };
-        s10.addText('🏆 مقایسه با رقبا و روش‌های سنتی', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
-        const td = [
-            [{ text: 'ویژگی', options: { bold: true, color: C.gold, fill: C.dark2 } },
-             { text: '⭐ پالس', options: { bold: true, color: C.gold, fill: C.dark2 } },
-             { text: '💼 رایج', options: { bold: true, color: C.gold, fill: C.dark2 } },
-             { text: '📝 کاغذ', options: { bold: true, color: C.gold, fill: C.dark2 } }],
-            ['کار در قطعی اینترنت', '✅', '❌', '✅'],
-            ['دسترسی از موبایل', '✅', '⚠️', '❌'],
-            ['پورتال اعضا', '✅', '❌', '❌'],
-            ['پیام‌رسان داخلی', '✅', '❌', '❌'],
-            ['گزارش‌های دقیق', '✅', '⚠️', '❌'],
-            ['همگام‌سازی ابری', '✅', '✅', '❌'],
-            ['امنیت اطلاعات', '✅', '⚠️', '❌'],
-        ];
-        s10.addTable(td, { x: 0.75, y: 1.2, w: 8.5, h: 4.0, colW: [3.5, 1.67, 1.67, 1.66], fontSize: 12, align: 'center', valign: 'middle', fontFace: F, color: C.text, fill: { color: C.dark }, border: { type: 'solid', color: '2C3E50', pt: 1.5 } });
-
-        // Slide 11: Roadmap
-        let s11 = pptx.addSlide();
-        s11.background = { color: C.bg };
-        s11.addText('🚀 فرایند ارتقاء در آینده', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
-        [['فاز ۱', '🌱', 'شروع و اعتبارسنجی', '۳ ماه'], ['فاز ۲', '📈', 'گسترش امکانات', '۶ ماه'], ['فاز ۳', '🌍', 'بازارهای جدید', '۹ ماه'], ['فاز ۴', '🏆', 'رشد و بین‌المللی', '۱ سال']].forEach((p, i) => {
-            const x = 7.4 - i * 2.3;
-            s11.addShape(pptx.ShapeType.roundRect, { x: x, y: 1.2, w: 2.1, h: 3.8, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
-            s11.addText(p[0], { x: x, y: 1.3, w: 2.1, h: 0.4, fontSize: 12, bold: true, align: 'center', color: C.gold, fill: { color: C.dark2 }, fontFace: F });
-            s11.addText(p[3], { x: x, y: 1.7, w: 2.1, h: 0.3, fontSize: 10, align: 'center', color: C.gray, fontFace: F });
-            s11.addText(p[1], { x: x, y: 2.1, w: 2.1, h: 1.0, fontSize: 40, align: 'center' });
-            s11.addText(p[2], { x: x, y: 3.2, w: 2.1, h: 0.5, fontSize: 13, bold: true, align: 'center', color: C.gold, fontFace: F });
-        });
-
-        // Slide 12: QR
-        let s12 = pptx.addSlide();
-        s12.background = { color: C.bg };
-        s12.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.2, w: 4.5, h: 4.0, fill: { color: C.dark2 }, line: { color: C.gold, width: 3 }, rectRadius: 0.25 });
-        s12.addText('📱 اسکن کنید', { x: 0.5, y: 1.4, w: 4.5, h: 0.5, fontSize: 18, bold: true, align: 'center', color: C.gold, fontFace: F });
-        try {
-            s12.addImage({ path: "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https%3A%2F%2Filyasalehzade6-wq.github.io%2Fpulse-landing%2F", x: 1.0, y: 1.9, w: 3.5, h: 3.0 });
-        } catch(e) {
-            s12.addText('[QR Code]', { x: 1.0, y: 1.9, w: 3.5, h: 3.0, fontSize: 20, align: 'center', valign: 'middle', color: C.gray, fill: { color: 'FFFFFF' }, fontFace: F });
-        }
-        s12.addText('🌐 pulse-landing', { x: 0.5, y: 4.9, w: 4.5, h: 0.3, fontSize: 12, bold: true, align: 'center', color: C.gold, fill: { color: C.dark }, fontFace: F });
-        s12.addText('⭐', { x: 6.0, y: 1.3, w: 3.5, h: 1.0, fontSize: 60, align: 'center', color: C.gold });
-        s12.addText('پالس مدیریت', { x: 5.5, y: 2.3, w: 4.0, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
-        s12.addText('آماده‌ایم تا باشگاه شما را به سطح بعدی ببریم', { x: 5.5, y: 3.1, w: 4.0, h: 0.6, fontSize: 12, align: 'center', color: C.text, fontFace: F });
-        s12.addShape(pptx.ShapeType.roundRect, { x: 5.5, y: 3.9, w: 4.0, h: 0.5, fill: { color: C.dark2 }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
-        s12.addText('📱 09137704340', { x: 5.5, y: 3.9, w: 4.0, h: 0.5, fontSize: 12, bold: true, align: 'center', valign: 'middle', color: C.gold, fontFace: F });
-        s12.addShape(pptx.ShapeType.roundRect, { x: 5.5, y: 4.5, w: 4.0, h: 0.5, fill: { color: C.dark2 }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
-        s12.addText('💬 @Pulsmanagersaport', { x: 5.5, y: 4.5, w: 4.0, h: 0.5, fontSize: 10, bold: true, align: 'center', valign: 'middle', color: C.gold, fontFace: F });
-
-        await pptx.writeFile({ fileName: 'PulseManagement-PitchDeck.pptx' });
-        btn.textContent = '✅ دانلود شد!';
-        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
-    } catch (err) {
-        console.error(err);
-        alert('❌ خطا: ' + err.message);
-        btn.textContent = orig;
-        btn.disabled = false;
-    }
-}
 </script>
 </body>
 </html>
