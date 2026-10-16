@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitch Deck — پالس مدیریت</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Vazirmatn", Tahoma, sans-serif;
+    background: #0a0a14;
+    color: #e8e8f0;
+    direction: rtl;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.bg-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+.bg-gold { width: 700px; height: 700px; background: #f1c40f; top: -250px; right: -250px; }
+.bg-blue { width: 600px; height: 600px; background: #3498db; bottom: -200px; left: -200px; }
+
+.controls { position: fixed; top: 20px; left: 20px; z-index: 9999; display: flex; gap: 12px; }
+
+.btn {
+    background: linear-gradient(135deg, #f1c40f, #d4ac0d);
+    color: #0a0a14; border: none;
+    padding: 12px 22px; border-radius: 12px;
+    font-family: "Vazirmatn", sans-serif;
+    font-weight: 700; font-size: 14px; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(241, 196, 15, 0.35);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-secondary { background: transparent; color: #f1c40f; border: 2px solid #f1c40f; }
+
+.page-counter {
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    background: rgba(26, 26, 46, 0.95); color: #f1c40f;
+    padding: 12px 22px; border-radius: 14px;
+    font-weight: 800; font-size: 17px; border: 2px solid #f1c40f;
+}
+
+.slide {
+    width: 100vw; height: 100vh;
+    display: none; padding: 40px 60px;
+    overflow-y: auto; position: relative; z-index: 1;
+}
+
+.slide.active {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-title {
+    font-size: 42px; color: #f1c40f;
+    text-align: center; margin-bottom: 30px;
+    font-weight: 900; padding-bottom: 18px;
+    position: relative;
+}
+.slide-title::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 5px;
+    background: linear-gradient(to left, transparent, #f1c40f, #3498db, transparent);
+    border-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   اسلاید HERO
+   ═══════════════════════════════════════════════════════════ */
+.hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 40px;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+}
+
+.hero-text-side { display: flex; flex-direction: column; gap: 20px; }
+
+.hero-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.pulse-logo {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 40px rgba(52, 152, 219, 0.5);
+    position: relative;
+}
+.pulse-logo svg {
+    width: 40px;
+    height: 40px;
+    stroke: #fff;
+    stroke-width: 6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.pulse-logo::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #3498db, transparent, #f1c40f);
+    z-index: -1;
+    opacity: 0.5;
+    animation: logoGlowRotate 6s linear infinite;
+}
+@keyframes logoGlowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.hero-brand-name {
+    font-size: 54px;
+    color: #f1c40f;
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 1;
+    text-shadow: 0 0 60px rgba(241, 196, 15, 0.5);
+}
+
+.hero-main-tagline {
+    font-size: 26px;
+    color: #e8e8f0;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.hero-sub-tagline {
+    font-size: 18px;
+    color: #95a5a6;
+    font-weight: 500;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.hero-features-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding-top: 25px;
+    border-top: 2px solid rgba(241, 196, 15, 0.2);
+    margin-top: 15px;
+}
+
+.hero-feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.hero-feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.hero-feature-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: linear-gradient(135deg, rgba(241, 196, 15, 0.15), rgba(241, 196, 15, 0.05));
+    border: 2px solid rgba(241, 196, 15, 0.4);
+    box-shadow: 0 10px 25px rgba(241, 196, 15, 0.15);
+    transition: 0.3s;
+}
+.hero-feature-item:nth-child(1) .hero-feature-icon { border-color: #3498db; background: rgba(52, 152, 219, 0.15); }
+.hero-feature-item:nth-child(2) .hero-feature-icon { border-color: #2ecc71; background: rgba(46, 204, 113, 0.15); }
+.hero-feature-item:nth-child(3) .hero-feature-icon { border-color: #9b59b6; background: rgba(155, 89, 182, 0.15); }
+.hero-feature-item:nth-child(4) .hero-feature-icon { border-color: #e74c3c; background: rgba(231, 76, 60, 0.15); }
+
+.hero-feature-label {
+    font-size: 13px;
+    color: #c8c8d0;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.hero-devices-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+    height: 100%;
+}
+
+.devices-container {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    perspective: 1500px;
+}
+
+/* ─── Laptop Mockup (Reusable) ─── */
+.laptop-mockup {
+    width: 85%;
+    position: relative;
+    transform: rotateY(-10deg) rotateX(5deg);
+    transform-style: preserve-3d;
+    transition: 0.5s;
+    z-index: 1;
+}
+.laptop-mockup:hover {
+    transform: rotateY(-5deg) rotateX(2deg);
+}
+
+.laptop-screen {
+    background: #0f0f1a;
+    border-radius: 12px 12px 0 0;
+    border: 3px solid #34495e;
+    border-bottom: none;
+    padding: 10px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 2px rgba(241, 196, 15, 0.2);
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.laptop-base {
+    width: 108%;
+    margin-right: -4%;
+    height: 14px;
+    background: linear-gradient(180deg, #34495e 0%, #1a1a2e 100%);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    position: relative;
+}
+.laptop-base::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: #0f0f1a;
+    border-radius: 0 0 4px 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   اسلایدهای نمایش قابلیت‌ها
+   ═══════════════════════════════════════════════════════════ */
+.feature-slide-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+.feature-text-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feature-badge {
+    display: inline-block;
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 14px;
+    border: 1px solid #f1c40f;
+    width: fit-content;
+}
+
+.feature-heading {
+    font-size: 38px;
+    color: #f1c40f;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.feature-desc {
+    font-size: 18px;
+    color: #c8c8d0;
+    line-height: 1.8;
+}
+
+.feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: #e8e8f0;
+    background: rgba(26, 26, 46, 0.6);
+    padding: 12px 18px;
+    border-radius: 12px;
+    border-right: 4px solid #2ecc71;
+}
+
+.feature-list li span.icon {
+    font-size: 20px;
+}
+
+/* ─── UI Elements inside Laptop ─── */
+.ui-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 6px; border-bottom: 1px solid #2c3e50; margin-bottom: 6px;
+    font-size: 8px; color: #f1c40f; font-weight: 800;
+}
+.ui-body { display: flex; gap: 6px; flex: 1; overflow: hidden; }
+.ui-sidebar {
+    width: 80px; background: #1a1a2e; border-radius: 6px; padding: 6px;
+    display: flex; flex-direction: column; gap: 3px;
+}
+.ui-menu {
+    font-size: 6px; color: #95a5a6; padding: 4px 6px; border-radius: 3px;
+}
+.ui-menu.active { background: #f1c40f; color: #0f0f1a; font-weight: 800; }
+.ui-main { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+
+/* UI: Dashboard */
+.ui-stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.ui-stat-card {
+    border-radius: 6px; padding: 6px; text-align: center; color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.ui-stat-card.blue { background: #3498db; }
+.ui-stat-card.green { background: #2ecc71; }
+.ui-stat-card.red { background: #e74c3c; }
+.ui-stat-card.yellow { background: #f1c40f; }
+.ui-stat-val { font-size: 12px; font-weight: 900; }
+.ui-stat-lbl { font-size: 6px; opacity: 0.8; }
+.ui-welcome {
+    background: #1a1a2e; border-radius: 6px; padding: 10px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; flex: 1;
+}
+.ui-welcome-title { font-size: 9px; color: #f1c40f; font-weight: 800; }
+.ui-welcome-date { font-size: 6px; color: #95a5a6; }
+.ui-btn-report {
+    background: #f1c40f; color: #0f0f1a; border: none;
+    padding: 3px 10px; border-radius: 4px; font-size: 7px; font-weight: 800;
+}
+
+/* UI: Class Management */
+.ui-form { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 6px; }
+.ui-input {
+    background: #1a1a2e; border: 1px solid #2c3e50; border-radius: 4px;
+    padding: 4px 6px; font-size: 6px; color: #95a5a6;
+}
+.ui-btn-group { display: flex; gap: 4px; margin-bottom: 6px; }
+.ui-btn {
+    padding: 4px 10px; border-radius: 4px; font-size: 6px; font-weight: 800; border: none;
+}
+.ui-btn.yellow { background: #f1c40f; color: #0f0f1a; }
+.ui-btn.red { background: #e74c3c; color: #fff; }
+.ui-btn.gray { background: #2c3e50; color: #95a5a6; }
+.ui-table { width: 100%; border-collapse: collapse; font-size: 6px; }
+.ui-table th { background: #1a1a2e; color: #95a5a6; padding: 4px; text-align: right; border-bottom: 1px solid #2c3e50; }
+.ui-table td { padding: 4px; text-align: right; border-bottom: 1px solid #1a1a2e; color: #c8c8d0; }
+
+/* UI: Attendance */
+.ui-att-header { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; font-size: 6px; color: #95a5a6; }
+.ui-att-badge { background: #2c3e50; padding: 2px 6px; border-radius: 4px; }
+.ui-att-badge.green { background: #2ecc71; color: #fff; }
+.ui-att-badge.red { background: #e74c3c; color: #fff; }
+.ui-att-badge.yellow { background: #f1c40f; color: #0f0f1a; }
+.ui-radio-group { display: flex; gap: 4px; }
+.ui-radio { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #2c3e50; }
+.ui-radio.active { border-color: #2ecc71; background: #2ecc71; }
+
+/* UI: Reporting */
+.ui-report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; }
+.ui-report-btn {
+    background: #f1c40f; color: #0f0f1a; border: none;
+    padding: 8px; border-radius: 6px; font-size: 7px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.ui-filter { background: #1a1a2e; border: 1px solid #2c3e50; border-radius: 4px; padding: 4px; font-size: 6px; color: #95a5a6; width: 100%; }
+
+/* ─── Phone Mockup (Reusable) ─── */
+.phone-mockup {
+    width: 140px;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    background: #1a1a2e;
+    border-radius: 22px;
+    padding: 8px;
+    border: 3px solid #34495e;
+    box-shadow: 
+        0 30px 70px rgba(0, 0, 0, 0.8),
+        0 0 0 2px rgba(241, 196, 15, 0.3);
+    transform: rotateY(-5deg) translateZ(30px);
+    z-index: 2;
+    transition: 0.5s;
+}
+.phone-mockup:hover {
+    transform: rotateY(0deg) translateZ(50px) translateY(-10px);
+}
+
+.phone-notch {
+    width: 40px;
+    height: 4px;
+    background: #0f0f1a;
+    border-radius: 3px;
+    margin: 0 auto 6px;
+}
+
+.phone-screen {
+    background: #0f0f1a;
+    border-radius: 16px;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 240px;
+    overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   بقیه اسلایدها
+   ═══════════════════════════════════════════════════════════ */
+.problem-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 22px; max-width: 1500px; margin: 0 auto; width: 100%;
+}
+.problem-card {
+    background: linear-gradient(135deg, #2a1515, #1f1533);
+    border-radius: 22px; padding: 28px 22px;
+    text-align: center;
+    border-top: 5px solid #e74c3c;
+    transition: 0.3s;
+}
+.problem-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(231,76,60,0.3); }
+.problem-icon { font-size: 80px; margin-bottom: 15px; filter: drop-shadow(0 0 30px rgba(231,76,60,0.6)); }
+.problem-num { font-size: 54px; color: #e74c3c; font-weight: 900; line-height: 1; margin-bottom: 10px; }
+.problem-lbl { font-size: 20px; font-weight: 800; color: #e8e8f0; margin-bottom: 8px; }
+.problem-desc { font-size: 13px; color: #95a5a6; line-height: 1.6; }
+
+.market-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 22px; max-width: 1500px; margin: 0 auto; width: 100%;
+}
+.market-card {
+    background: linear-gradient(135deg, #1a2a3e, #1f1533);
+    border-radius: 22px; padding: 28px 22px;
+    text-align: center;
+    border-top: 5px solid #3498db;
+    transition: 0.3s;
+}
+.market-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(52,152,219,0.3); }
+.market-icon { font-size: 80px; margin-bottom: 15px; filter: drop-shadow(0 0 30px rgba(52,152,219,0.6)); }
+.market-title { font-size: 24px; color: #3498db; font-weight: 900; margin-bottom: 10px; }
+.market-desc { font-size: 14px; color: #c8c8d0; line-height: 1.7; }
+
+.solution-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: 10px; align-items: center;
+    max-width: 1600px; margin: 0 auto; width: 100%;
+}
+.flow-step {
+    background: linear-gradient(135deg, #1a2a1e, #1f1533);
+    border-radius: 22px; padding: 28px 18px;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    position: relative;
+    transition: 0.4s;
+}
+.flow-step:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(46,204,113,0.3); }
+.flow-num {
+    position: absolute; top: -16px; right: -16px;
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: #0a0a14; border-radius: 50%;
+    font-size: 18px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    border: 3px solid #0a0a14;
+    box-shadow: 0 6px 20px rgba(46,204,113,0.6);
+}
+.flow-icon { font-size: 56px; margin-bottom: 12px; filter: drop-shadow(0 0 25px rgba(46,204,113,0.6)); }
+.flow-title { font-size: 17px; font-weight: 900; color: #2ecc71; margin-bottom: 8px; }
+.flow-text { font-size: 12px; color: #c8c8d0; line-height: 1.7; }
+.flow-arrow {
+    font-size: 34px; color: #f1c40f;
+    text-shadow: 0 0 20px rgba(241,196,15,0.7);
+    animation: arrowPulse 1.8s infinite;
+}
+@keyframes arrowPulse {
+    0%, 100% { transform: translateX(0); opacity: 0.6; }
+    50% { transform: translateX(-10px); opacity: 1; }
+}
+
+.features-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; max-width: 1550px; margin: 0 auto; width: 100%;
+}
+.feature-card {
+    background: linear-gradient(135deg, #1a1a2e, #252540);
+    border-radius: 18px; padding: 22px 14px;
+    text-align: center; border: 2px solid #2c3e50;
+    transition: 0.4s; min-height: 150px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+}
+.feature-card:hover { transform: translateY(-8px); border-color: #f1c40f; box-shadow: 0 20px 45px rgba(241,196,15,0.25); }
+.feature-card.star { background: linear-gradient(135deg, #2d1f4d, #1f1533); border-color: #f1c40f; }
+.feature-icon { font-size: 48px; margin-bottom: 10px; filter: drop-shadow(0 0 20px rgba(241,196,15,0.4)); }
+.feature-card.star .feature-icon { font-size: 56px; }
+.feature-title { font-size: 15px; font-weight: 900; color: #f1c40f; margin-bottom: 5px; }
+.feature-card.star .feature-title { font-size: 16px; }
+.feature-desc { font-size: 11px; color: #95a5a6; line-height: 1.5; }
+
+.why-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 22px; max-width: 1500px; margin: 0 auto; width: 100%;
+}
+.why-card {
+    background: linear-gradient(135deg, #1f1533, #2d1f4d);
+    border-radius: 24px; padding: 28px;
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 22px; align-items: center;
+    border: 2px solid #f1c40f;
+    transition: 0.4s;
+}
+.why-card:hover { transform: translateY(-6px); box-shadow: 0 25px 60px rgba(241,196,15,0.2); }
+.why-icon {
+    width: 90px; height: 90px; border-radius: 22px;
+    background: linear-gradient(135deg, #f1c40f, #d4ac0d);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    box-shadow: 0 15px 40px rgba(241,196,15,0.5);
+}
+.why-content h3 { font-size: 22px; color: #f1c40f; margin-bottom: 10px; font-weight: 900; line-height: 1.3; }
+.why-content p { font-size: 14px; color: #c8c8d0; line-height: 1.7; }
+.why-content p strong { color: #2ecc71; font-weight: 800; }
+
+.compare-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 22px; max-width: 1500px; margin: 0 auto; width: 100%;
+}
+.compare-col {
+    background: #1a1a2e; border-radius: 22px;
+    overflow: hidden; border: 2px solid #2c3e50;
+    display: flex; flex-direction: column;
+}
+.compare-col.mine {
+    border-color: #f1c40f;
+    box-shadow: 0 0 60px rgba(241,196,15,0.25);
+    transform: scale(1.03);
+}
+.compare-head {
+    padding: 18px; text-align: center;
+    font-size: 18px; font-weight: 900;
+    background: #2d1f4d; color: #f1c40f;
+    border-bottom: 2px solid #2c3e50;
+}
+.compare-col.mine .compare-head {
+    background: linear-gradient(135deg, #f1c40f, #d4ac0d);
+    color: #0a0a14; font-size: 20px;
+}
+.compare-list { padding: 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.compare-row {
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 10px 14px;
+    background: rgba(15,15,26,0.5);
+    border-radius: 10px; font-size: 13px;
+}
+.compare-col.mine .compare-row { background: rgba(241,196,15,0.1); border-right: 3px solid #f1c40f; }
+.compare-name { color: #c8c8d0; font-weight: 600; }
+.compare-mark { font-size: 20px; }
+
+.roadmap-timeline {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: 6px; align-items: stretch;
+    max-width: 1600px; margin: 0 auto; width: 100%;
+}
+.roadmap-phase {
+    background: linear-gradient(135deg, #1a1a2e, #252540);
+    border-radius: 20px; padding: 22px 16px;
+    text-align: center; position: relative;
+    transition: 0.4s; border: 2px solid transparent;
+}
+.roadmap-phase:hover {
+    transform: translateY(-8px);
+    border-color: #f1c40f;
+    box-shadow: 0 20px 50px rgba(241,196,15,0.2);
+}
+.phase-1 { border-top: 5px solid #3498db; }
+.phase-2 { border-top: 5px solid #2ecc71; }
+.phase-3 { border-top: 5px solid #f39c12; }
+.phase-4 { border-top: 5px solid #e74c3c; }
+.phase-badge {
+    position: absolute; top: -12px; right: 15px;
+    background: #f1c40f; color: #0a0a14;
+    padding: 3px 14px; border-radius: 20px;
+    font-size: 11px; font-weight: 900;
+    box-shadow: 0 4px 15px rgba(241,196,15,0.5);
+}
+.phase-period { font-size: 11px; color: #95a5a6; margin-bottom: 8px; font-weight: 700; }
+.phase-icon { font-size: 42px; margin: 8px 0; filter: drop-shadow(0 0 15px rgba(241,196,15,0.4)); }
+.phase-title { font-size: 15px; color: #f1c40f; font-weight: 900; margin-bottom: 12px; }
+.phase-items { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.phase-items li {
+    font-size: 11px; color: #c8c8d0;
+    padding: 5px 8px;
+    background: rgba(15,15,26,0.4);
+    border-radius: 6px; text-align: right;
+    border-right: 2px solid rgba(241,196,15,0.3);
+}
+.roadmap-line-h {
+    width: 20px; height: 3px;
+    background: linear-gradient(to right, #f1c40f, transparent);
+    align-self: center; border-radius: 2px;
+}
+
+.qr-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 50px; align-items: center;
+    max-width: 1500px; margin: 0 auto; width: 100%;
+}
+.qr-section { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.qr-frame {
+    background: linear-gradient(145deg, #1a1a2e, #2d1f4d);
+    border-radius: 30px; padding: 30px;
+    border: 4px solid #f1c40f;
+    box-shadow: 0 30px 80px rgba(241,196,15,0.3), 0 0 120px rgba(241,196,15,0.15);
+    animation: float 5s ease-in-out infinite;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+.qr-header { text-align: center; font-size: 22px; font-weight: 900; color: #f1c40f; margin-bottom: 20px; }
+.qr-img-box { background: #fff; padding: 16px; border-radius: 22px; margin-bottom: 20px; }
+.qr-img { display: block; width: 300px; height: 300px; border-radius: 12px; }
+.qr-footer {
+    text-align: center; padding: 10px 22px;
+    background: rgba(241,196,15,0.12);
+    border: 2px solid #f1c40f; border-radius: 28px;
+    font-size: 16px; font-weight: 800; color: #f1c40f;
+    direction: ltr; letter-spacing: 1px;
+}
+.qr-text { font-size: 20px; font-weight: 700; color: #e8e8f0; text-align: center; line-height: 1.8; }
+.qr-text .hl { color: #f1c40f; font-size: 22px; font-weight: 900; }
+.qr-arrow { font-size: 32px; color: #f1c40f; animation: bounce 1.5s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(15px); } }
+
+.brand-side { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+.brand-logo { font-size: 110px; filter: drop-shadow(0 0 80px rgba(241,196,15,0.8)); }
+.brand-name { font-size: 68px; color: #f1c40f; font-weight: 900; text-shadow: 0 0 70px rgba(241,196,15,0.5); letter-spacing: -4px; }
+.brand-tag { font-size: 22px; color: #e8e8f0; font-weight: 600; line-height: 1.6; }
+.brand-divider { width: 120px; height: 5px; background: linear-gradient(to left, transparent, #f1c40f, #3498db, transparent); border-radius: 3px; }
+.brand-msg { font-size: 22px; color: #c8c8d0; font-weight: 600; line-height: 1.8; }
+.brand-contacts { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+.contact-badge {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(241,196,15,0.12);
+    border: 2px solid #f1c40f; padding: 12px 22px;
+    border-radius: 16px; font-size: 16px; font-weight: 800;
+    color: #f1c40f; text-decoration: none; cursor: pointer;
+    transition: 0.3s;
+}
+.contact-badge:hover { background: rgba(241,196,15,0.25); transform: translateY(-4px); }
+
+@media (max-width: 1100px) {
+    .hero-layout { grid-template-columns: 1fr; }
+    .hero-devices-side { display: none; }
+    .hero-features-row { grid-template-columns: repeat(2, 1fr); }
+    .hero-brand-name { font-size: 42px; }
+    .qr-layout { grid-template-columns: 1fr; }
+    .roadmap-timeline { grid-template-columns: 1fr; gap: 12px; }
+    .roadmap-line-h { width: 3px; height: 20px; margin: 0 auto; }
+    .problem-grid, .why-grid, .compare-grid, .market-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: repeat(3, 1fr); }
+    .solution-flow { grid-template-columns: 1fr; }
+    .flow-arrow { transform: rotate(-90deg); }
+    .feature-slide-layout { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow bg-gold"></div>
+<div class="bg-glow bg-blue"></div>
+
+<div class="controls">
+    <button class="btn" onclick="exportPPTX()">📥 دانلود PowerPoint</button>
+    <button class="btn btn-secondary" onclick="window.print()">📄 PDF</button>
+</div>
+
+<div class="page-counter">
+    <span id="currentPage">1</span> / <span id="totalPages">12</span>
+</div>
+
+<!-- ۱ — مشکل -->
+<section class="slide active">
+    <h2 class="slide-title">🚨 مشکلات امروز باشگاه‌ها</h2>
+    <div class="problem-grid">
+        <div class="problem-card">
+            <div class="problem-icon">💸</div>
+            <div class="problem-num">۷۰٪</div>
+            <div class="problem-lbl">اقساط فراموش‌شده</div>
+            <div class="problem-desc">پول‌هایی که برنمی‌گردند</div>
+        </div>
+        <div class="problem-card">
+            <div class="problem-icon">📝</div>
+            <div class="problem-num">۸۵٪</div>
+            <div class="problem-lbl">اطلاعات پراکنده</div>
+            <div class="problem-desc">دفتر، کاغذ، اکسل</div>
+        </div>
+        <div class="problem-card">
+            <div class="problem-icon">🕐</div>
+            <div class="problem-num">۵+ ساعت</div>
+            <div class="problem-lbl">کار دستی روزانه</div>
+            <div class="problem-desc">وقتی که هدر می‌رود</div>
+        </div>
+    </div>
+</section>
+
+<!-- ۲ — راه‌حل -->
+<section class="slide">
+    <h2 class="slide-title">✨ راه‌حل ما — فرایند کامل</h2>
+    <div class="solution-flow">
+        <div class="flow-step">
+            <div class="flow-num">۱</div>
+            <div class="flow-icon">📝</div>
+            <div class="flow-title">ثبت سریع</div>
+            <div class="flow-text">ثبت عضو، پرداخت، حضور</div>
+        </div>
+        <div class="flow-arrow">◄</div>
+        <div class="flow-step">
+            <div class="flow-num">۲</div>
+            <div class="flow-icon">🛡️</div>
+            <div class="flow-title">ذخیره محلی</div>
+            <div class="flow-text">بدون نیاز به اینترنت</div>
+        </div>
+        <div class="flow-arrow">◄</div>
+        <div class="flow-step">
+            <div class="flow-num">۳</div>
+            <div class="flow-icon">🔄</div>
+            <div class="flow-title">همگام‌سازی</div>
+            <div class="flow-text">خودکار به فضای ابری</div>
+        </div>
+        <div class="flow-arrow">◄</div>
+        <div class="flow-step">
+            <div class="flow-num">۴</div>
+            <div class="flow-icon">📱</div>
+            <div class="flow-title">دسترسی همه‌جا</div>
+            <div class="flow-text">موبایل + لپ‌تاپ</div>
+        </div>
+    </div>
+</section>
+
+<!-- ۳ — معرفی (Hero) -->
+<section class="slide">
+    <div class="hero-layout">
+        <div class="hero-text-side">
+            <div class="hero-brand-row">
+                <div class="pulse-logo">
+                    <svg viewBox="0 0 100 100">
+                        <polyline points="0,50 25,50 35,20 45,80 55,40 65,60 75,30 85,50 100,50" />
+                    </svg>
+                </div>
+                <h1 class="hero-brand-name">پالس مدیریت</h1>
+            </div>
+            <p class="hero-main-tagline">مدیریت یکپارچه، ساده و هوشمند</p>
+            <p class="hero-sub-tagline">برای مجموعه‌های ورزشی و آموزشی</p>
+            
+            <div class="hero-features-row">
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">🇮🇷</div>
+                    <div class="hero-feature-label">کاملاً فارسی</div>
+                </div>
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">☁️</div>
+                    <div class="hero-feature-label">ابری و آفلاین</div>
+                </div>
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">👥</div>
+                    <div class="hero-feature-label">پورتال اختصاصی اعضا</div>
+                </div>
+                <div class="hero-feature-item">
+                    <div class="hero-feature-icon">🛡️</div>
+                    <div class="hero-feature-label">امنیت و پشتیبانی</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-devices-side">
+            <div class="devices-container">
+                <!-- Laptop -->
+                <div class="laptop-mockup">
+                    <div class="laptop-screen">
+                        <div class="ui-header">
+                            <span>⭐ باشگاه ستارگان</span>
+                            <span>⏰ 12:04:55 | متصل | فعال</span>
+                        </div>
+                        <div class="ui-body">
+                            <div class="ui-sidebar">
+                                <div class="ui-menu active">🏠 صفحه اصلی</div>
+                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                <div class="ui-menu">✅ حضور و غیاب</div>
+                                <div class="ui-menu">📅 رزرو کلاس</div>
+                                <div class="ui-menu">🏆 رتبه‌بندی</div>
+                                <div class="ui-menu">💰 امور مالی</div>
+                            </div>
+                            <div class="ui-main">
+                                <div class="ui-stat-cards">
+                                    <div class="ui-stat-card blue"><div class="ui-stat-val">6</div><div class="ui-stat-lbl">کل ورزشکاران</div></div>
+                                    <div class="ui-stat-card green"><div class="ui-stat-val">5</div><div class="ui-stat-lbl">فعال</div></div>
+                                    <div class="ui-stat-card red"><div class="ui-stat-val">1</div><div class="ui-stat-lbl">غیرفعال</div></div>
+                                    <div class="ui-stat-card yellow"><div class="ui-stat-val">2</div><div class="ui-stat-lbl">کلاس‌ها</div></div>
+                                </div>
+                                <div class="ui-welcome">
+                                    <div class="ui-welcome-title">⭐ به باشگاه ستارگان خوش آمدید</div>
+                                    <div class="ui-welcome-date">📅 پنجشنبه - 1405/07/16</div>
+                                    <button class="ui-btn-report">📊 گزارش ماهیانه</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="laptop-base"></div>
+                </div>
+
+                <!-- Phone -->
+                <div class="phone-mockup">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="ph-header-portal">
+                            <span>پورتال اعضا</span>
+                            <span>🔔</span>
+                        </div>
+                        <div class="ph-profile">
+                            <div class="ph-avatar">👤</div>
+                            <div class="ph-info">
+                                <div class="ph-name">علی احمدی</div>
+                                <div class="ph-id">ID: 4092</div>
+                            </div>
+                        </div>
+                        <div class="ph-stats-grid">
+                            <div class="ph-stat-box">
+                                <div class="ph-stat-val">۱۲</div>
+                                <div class="ph-stat-lbl">حضور</div>
+                            </div>
+                            <div class="ph-stat-box">
+                                <div class="ph-stat-val">۲ روز</div>
+                                <div class="ph-stat-lbl">تا قسط بعدی</div>
+                            </div>
+                        </div>
+                        <div class="ph-activity-list">
+                            <div class="ph-act-title">آخرین فعالیت‌ها</div>
+                            <div class="ph-act-item"><span>💰 پرداخت قسط ۲</span><span>۱۰:۳۰</span></div>
+                            <div class="ph-act-item"><span>✅ ثبت حضور</span><span>۰۸:۱۵</span></div>
+                        </div>
+                        <div class="ph-nav">
+                            <div class="ph-nav-item active">🏠</div>
+                            <div class="ph-nav-item">📅</div>
+                            <div class="ph-nav-item">💰</div>
+                            <div class="ph-nav-item">👤</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ۴ — ویژگی ها (به چه دردی میخوره) -->
+<section class="slide">
+    <h2 class="slide-title">🎯 به چه دردی می‌خوره؟ (ویژگی‌ها)</h2>
+    <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">👥</div><div class="feature-title">مدیریت اعضا</div><div class="feature-desc">پرونده + تاریخچه</div></div>
+        <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title">حضور و غیاب</div><div class="feature-desc">ثبت + گزارش</div></div>
+        <div class="feature-card"><div class="feature-icon">💰</div><div class="feature-title">مدیریت مالی</div><div class="feature-desc">پرداخت + اقساط</div></div>
+        <div class="feature-card"><div class="feature-icon">📅</div><div class="feature-title">برنامه کلاس‌ها</div><div class="feature-desc">تقویم + ظرفیت</div></div>
+        <div class="feature-card star"><div class="feature-icon">💬</div><div class="feature-title">پیام‌رسان</div><div class="feature-desc">ارتباط مدیر با اعضا</div></div>
+        <div class="feature-card star"><div class="feature-icon">📊</div><div class="feature-title">گزارش‌های هوشمند</div><div class="feature-desc">نمودار + آمار</div></div>
+        <div class="feature-card star"><div class="feature-icon">🔔</div><div class="feature-title">اطلاع‌رسانی</div><div class="feature-desc">یادآوری اقساط</div></div>
+        <div class="feature-card"><div class="feature-icon">🎁</div><div class="feature-title">کیف پول</div><div class="feature-desc">شارژ + پرداخت</div></div>
+        <div class="feature-card"><div class="feature-icon">🥤</div><div class="feature-title">بوفه</div><div class="feature-desc">فروش + موجودی</div></div>
+        <div class="feature-card"><div class="feature-icon">👔</div><div class="feature-title">کارکنان</div><div class="feature-desc">حقوق + پاداش</div></div>
+        <div class="feature-card"><div class="feature-icon">🏆</div><div class="feature-title">رتبه‌بندی</div><div class="feature-desc">امتیاز + سطح</div></div>
+        <div class="feature-card"><div class="feature-icon">🎫</div><div class="feature-title">کارت عضویت</div><div class="feature-desc">چاپ + QR</div></div>
+    </div>
+</section>
+
+<!-- ۵ — توضیحات فنی: داشبورد -->
+<section class="slide">
+    <div class="feature-slide-layout">
+        <div class="feature-text-side">
+            <div class="feature-badge">💰 توضیحات فنی — امور مالی و داشبورد</div>
+            <h2 class="feature-heading">تصمیم‌گیری بر اساس داده‌ها، نه حدس و گمان</h2>
+            <p class="feature-desc">با داشبورد مدیریتی پالس، در یک نگاه وضعیت مالی باشگاه، درآمدها، هزینه‌ها و اقساط را ببینید. دیگر نیازی به ورق زدن دفتر و اکسل نیست.</p>
+            <ul class="feature-list">
+                <li><span class="icon">✅</span> مشاهده لحظه‌ای درآمد و هزینه‌ها</li>
+                <li><span class="icon">✅</span> مدیریت یکپارچه اقساط و بدهی‌ها</li>
+                <li><span class="icon">✅</span> گزارش‌گیری دقیق مالی برای تصمیم‌گیری بهتر</li>
+            </ul>
+        </div>
+        <div class="hero-devices-side">
+            <div class="devices-container">
+                <div class="laptop-mockup">
+                    <div class="laptop-screen">
+                        <div class="ui-header">
+                            <span>⭐ باشگاه ستارگان</span>
+                            <span>⏰ 12:08:33 | متصل | فعال</span>
+                        </div>
+                        <div class="ui-body">
+                            <div class="ui-sidebar">
+                                <div class="ui-menu">🏠 صفحه اصلی</div>
+                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                <div class="ui-menu">✅ حضور و غیاب</div>
+                                <div class="ui-menu active">💰 امور مالی</div>
+                                <div class="ui-menu">📅 رزرو کلاس</div>
+                                <div class="ui-menu">🏆 رتبه‌بندی</div>
+                            </div>
+                            <div class="ui-main">
+                                <div class="ui-stat-cards">
+                                    <div class="ui-stat-card blue"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">کل دریافتی</div></div>
+                                    <div class="ui-stat-card red"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">کل مخارج</div></div>
+                                    <div class="ui-stat-card yellow"><div class="ui-stat-val">۰</div><div class="ui-stat-lbl">مانده</div></div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px;">
+                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📊 گزارش مالی</div>
+                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">💳 دریافت شهریه</div>
+                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📝 ثبت مخارج</div>
+                                    <div class="ui-btn yellow" style="text-align:center; padding: 6px;">📅 مدیریت اقساط</div>
+                                </div>
+                                <div style="margin-top: 6px; font-size: 7px; color: #f1c40f; font-weight: 800;">آخرین تراکنش‌ها</div>
+                                <table class="ui-table">
+                                    <tr><th>نوع</th><th>مبلغ</th><th>تاریخ</th><th>توضیحات</th></tr>
+                                    <tr><td>دریافت</td><td>۱,۵۰۰,۰۰۰</td><td>1405/07/16</td><td>شهریه مهدی</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="laptop-base"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ۶ — توضیحات فنی: کلاس‌ها -->
+<section class="slide">
+    <div class="feature-slide-layout">
+        <div class="feature-text-side">
+            <div class="feature-badge">📅 توضیحات فنی — مدیریت کلاس‌ها</div>
+            <h2 class="feature-heading">برنامه‌ریزی هوشمند، بدون تداخل</h2>
+            <p class="feature-desc">کلاس‌ها را تعریف کنید، مربی اختصاص دهید، ظرفیت و شهریه را مشخص کنید. سیستم به صورت خودکار از تداخل جلوگیری می‌کند.</p>
+            <ul class="feature-list">
+                <li><span class="icon">✅</span> تعریف آسان کلاس‌ها و رشته‌های ورزشی</li>
+                <li><span class="icon">✅</span> تخصیص مربی و مدیریت ظرفیت</li>
+                <li><span class="icon">✅</span> مشاهده لیست کامل کلاس‌ها و تعداد اعضا</li>
+            </ul>
+        </div>
+        <div class="hero-devices-side">
+            <div class="devices-container">
+                <div class="laptop-mockup">
+                    <div class="laptop-screen">
+                        <div class="ui-header">
+                            <span>⭐ باشگاه ستارگان</span>
+                            <span>⏰ 12:08:55 | متصل | فعال</span>
+                        </div>
+                        <div class="ui-body">
+                            <div class="ui-sidebar">
+                                <div class="ui-menu">🏠 صفحه اصلی</div>
+                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                <div class="ui-menu">✅ حضور و غیاب</div>
+                                <div class="ui-menu">💰 امور مالی</div>
+                                <div class="ui-menu active">📅 کلاس‌ها</div>
+                                <div class="ui-menu">🏆 رتبه‌بندی</div>
+                            </div>
+                            <div class="ui-main">
+                                <div class="ui-form">
+                                    <div class="ui-input">نام کلاس: سانس کوچیک ها</div>
+                                    <div class="ui-input">رشته: کیک بوکسینگ</div>
+                                    <div class="ui-input">مربی: مهدی صالح زاده</div>
+                                    <div class="ui-input">شهریه (تومان): 1,500,000</div>
+                                    <div class="ui-input">جنسیت: آقایان</div>
+                                    <div class="ui-input">ظرفیت: 2</div>
+                                </div>
+                                <div class="ui-btn-group">
+                                    <div class="ui-btn yellow">➕ افزودن کلاس</div>
+                                    <div class="ui-btn yellow">✏️ ویرایش</div>
+                                    <div class="ui-btn red">🗑️ حذف</div>
+                                    <div class="ui-btn gray">لغو</div>
+                                </div>
+                                <table class="ui-table">
+                                    <tr><th>ID</th><th>نام کلاس</th><th>رشته</th><th>مربی</th><th>شهریه</th><th>ظرفیت</th><th>تعداد اعضا</th></tr>
+                                    <tr><td>2</td><td>سانس کوچیک ها</td><td>کیک بوکسینگ</td><td>مهدی صالح زاده</td><td>1,500,000</td><td>2</td><td>2</td></tr>
+                                    <tr><td>1</td><td>کیک</td><td>کیک</td><td>مهدی</td><td>1,500,000</td><td>0</td><td>2</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="laptop-base"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ۷ — توضیحات فنی: حضور و غیاب -->
+<section class="slide">
+    <div class="feature-slide-layout">
+        <div class="feature-text-side">
+            <div class="feature-badge">✅ توضیحات فنی — حضور و غیاب</div>
+            <h2 class="feature-heading">ثبت یک‌کلیکی، گزارش لحظه‌ای</h2>
+            <p class="feature-desc">دیگر نیازی به دفتر و خودکار نیست. با یک کلیک حضور و غیاب اعضا را ثبت کنید و گزارش دقیق آن را در لحظه دریافت کنید.</p>
+            <ul class="feature-list">
+                <li><span class="icon">✅</span> رابط کاربری ساده برای ثبت سریع</li>
+                <li><span class="icon">✅</span> ثبت وضعیت (حاضر، غایب، تاخیر، مرخصی)</li>
+                <li><span class="icon">✅</span> محاسبه خودکار آمار حضور برای هر عضو</li>
+            </ul>
+        </div>
+        <div class="hero-devices-side">
+            <div class="devices-container">
+                <div class="laptop-mockup">
+                    <div class="laptop-screen">
+                        <div class="ui-header">
+                            <span>⭐ باشگاه ستارگان</span>
+                            <span>⏰ 12:07:57 | متصل | فعال</span>
+                        </div>
+                        <div class="ui-body">
+                            <div class="ui-sidebar">
+                                <div class="ui-menu">🏠 صفحه اصلی</div>
+                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                <div class="ui-menu active">✅ حضور و غیاب</div>
+                                <div class="ui-menu">💰 امور مالی</div>
+                                <div class="ui-menu">📅 کلاس‌ها</div>
+                                <div class="ui-menu">🏆 رتبه‌بندی</div>
+                            </div>
+                            <div class="ui-main">
+                                <div class="ui-att-header">
+                                    <span>تاریخ: 1405/07/16</span>
+                                    <span>کلاس: سانس کوچیک ها</span>
+                                    <span class="ui-att-badge green">حاضر: 0</span>
+                                    <span class="ui-att-badge red">غایب: 0</span>
+                                    <span class="ui-att-badge yellow">تاخیر: 0</span>
+                                </div>
+                                <table class="ui-table">
+                                    <tr><th>ردیف</th><th>نام</th><th>نام خانوادگی</th><th>حاضر</th><th>غایب</th><th>تاخیر</th><th>توضیحات</th></tr>
+                                    <tr>
+                                        <td>1</td><td>مهدی</td><td>امینی</td>
+                                        <td><div class="ui-radio active"></div></td>
+                                        <td><div class="ui-radio"></div></td>
+                                        <td><div class="ui-radio"></div></td>
+                                        <td><div class="ui-input" style="height: 12px;"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td><td>ایلیا</td><td>صالح زاده</td>
+                                        <td><div class="ui-radio"></div></td>
+                                        <td><div class="ui-radio active" style="border-color: #e74c3c; background: #e74c3c;"></div></td>
+                                        <td><div class="ui-radio"></div></td>
+                                        <td><div class="ui-input" style="height: 12px;"></div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="laptop-base"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ۸ — توضیحات فنی: گزارش‌گیری -->
+<section class="slide">
+    <div class="feature-slide-layout">
+        <div class="feature-text-side">
+            <div class="feature-badge">📊 توضیحات فنی — گزارش‌گیری حرفه‌ای</div>
+            <h2 class="feature-heading">خروجی‌های دقیق برای مدیریت بهتر</h2>
+            <p class="feature-desc">با یک کلیک، گزارش‌های مالی، لیست اعضا و حضور و غیاب را به صورت PDF یا Excel دریافت کنید. همه چیز آماده برای ارائه به شرکا یا بایگانی.</p>
+            <ul class="feature-list">
+                <li><span class="icon">✅</span> خروجی PDF و Excel از تمام بخش‌ها</li>
+                <li><span class="icon">✅</span> فیلتر کردن گزارشات بر اساس کلاس</li>
+                <li><span class="icon">✅</span> گزارش‌های مالی دقیق برای حسابداری</li>
+            </ul>
+        </div>
+        <div class="hero-devices-side">
+            <div class="devices-container">
+                <div class="laptop-mockup">
+                    <div class="laptop-screen">
+                        <div class="ui-header">
+                            <span>⭐ باشگاه ستارگان</span>
+                            <span>⏰ 12:09:27 | متصل | فعال</span>
+                        </div>
+                        <div class="ui-body">
+                            <div class="ui-sidebar">
+                                <div class="ui-menu">🏠 صفحه اصلی</div>
+                                <div class="ui-menu">📊 داشبورد مدیریتی</div>
+                                <div class="ui-menu">✅ حضور و غیاب</div>
+                                <div class="ui-menu">💰 امور مالی</div>
+                                <div class="ui-menu">📅 کلاس‌ها</div>
+                                <div class="ui-menu active">📊 گزارش‌گیری</div>
+                            </div>
+                            <div class="ui-main">
+                                <div class="ui-report-grid">
+                                    <div class="ui-report-btn">📄 لیست اعضا (PDF)</div>
+                                    <div class="ui-report-btn">📊 گزارش مالی (PDF)</div>
+                                    <div class="ui-report-btn">✅ حضور و غیاب (Excel)</div>
+                                    <div class="ui-report-btn">📈 گزارش کامل (PDF)</div>
+                                </div>
+                                <div class="ui-filter">فیلتر کلاس: همه</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="laptop-base"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ۹ — مخاطبین و بازار -->
+<section class="slide">
+    <h2 class="slide-title">🎯 مخاطبین و بازار هدف ما</h2>
+    <div class="market-grid">
+        <div class="market-card">
+            <div class="market-icon">🏋️</div>
+            <div class="market-title">باشگاه‌های ورزشی</div>
+            <div class="market-desc">باشگاه‌های بدنسازی، کراس‌فیت، رزمی و... که به دنبال مدیریت یکپارچه اعضا، مالی و کلاس‌ها هستند.</div>
+        </div>
+        <div class="market-card">
+            <div class="market-icon">🏫</div>
+            <div class="market-title">آموزشگاه‌ها</div>
+            <div class="market-desc">آموزشگاه‌های ورزشی، هنری و علمی که نیاز به سیستم حضور و غیاب دقیق و مدیریت شهریه دارند.</div>
+        </div>
+        <div class="market-card">
+            <div class="market-icon">🏨</div>
+            <div class="market-title">مراکز اقامتی و رفاهی</div>
+            <div class="market-desc">هتل‌ها، اقامتگاه‌ها و مجتمع‌های ورزشی که به مدیریت رزرو، پرسنل و امور مالی نیاز دارند.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ۱۰ — رقیب ها -->
+<section class="slide">
+    <h2 class="slide-title">🏆 مقایسه با رقبا و روش‌های سنتی</h2>
+    <div class="compare-grid">
+        <div class="compare-col mine">
+            <div class="compare-head">⭐ پالس مدیریت</div>
+            <div class="compare-list">
+                <div class="compare-row"><span class="compare-name">کار در قطعی اینترنت</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">دسترسی از موبایل</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">پورتال اختصاصی اعضا</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">پیام‌رسان داخلی</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">گزارش‌های دقیق</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">همگام‌سازی ابری</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">امنیت اطلاعات</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+            </div>
+        </div>
+        <div class="compare-col">
+            <div class="compare-head">💼 نرم‌افزار رایج</div>
+            <div class="compare-list">
+                <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
+                <div class="compare-row"><span class="compare-name">پورتال اعضا</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">پیام‌رسان</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">گزارش دقیق</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
+                <div class="compare-row"><span class="compare-name">همگام ابری</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">امنیت</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
+            </div>
+        </div>
+        <div class="compare-col">
+            <div class="compare-head">📝 دفتر و کاغذ</div>
+            <div class="compare-list">
+                <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
+                <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">پورتال اعضا</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">پیام‌رسان</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">گزارش دقیق</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">همگام ابری</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+                <div class="compare-row"><span class="compare-name">امنیت</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ۱۱ — ROADMAP -->
+<section class="slide">
+    <h2 class="slide-title">🚀 فرایند ارتقاء در آینده</h2>
+    <div class="roadmap-timeline">
+        <div class="roadmap-phase phase-1">
+            <div class="phase-badge">فاز ۱</div>
+            <div class="phase-period">۳ ماه اول</div>
+            <div class="phase-icon">🌱</div>
+            <div class="phase-title">شروع و اعتبارسنجی</div>
+            <ul class="phase-items">
+                <li>🎯 جذب ۱۰ مشتری اول</li>
+                <li>📚 تولید ویدیوی آموزشی</li>
+                <li>🔧 دریافت بازخورد کاربران</li>
+                <li>📝 بهبود مستمر رابط کاربری</li>
+            </ul>
+        </div>
+        <div class="roadmap-line-h"></div>
+        <div class="roadmap-phase phase-2">
+            <div class="phase-badge">فاز ۲</div>
+            <div class="phase-period">۶ ماه</div>
+            <div class="phase-icon">📈</div>
+            <div class="phase-title">گسترش امکانات</div>
+            <ul class="phase-items">
+                <li>💳 درگاه پرداخت آنلاین</li>
+                <li>📱 اپلیکیشن اختصاصی موبایل</li>
+                <li>🤖 تحلیل هوشمند با AI</li>
+                <li>🎯 جذب ۵۰ مشتری</li>
+            </ul>
+        </div>
+        <div class="roadmap-line-h"></div>
+        <div class="roadmap-phase phase-3">
+            <div class="phase-badge">فاز ۳</div>
+            <div class="phase-period">۹ ماه</div>
+            <div class="phase-icon">🌍</div>
+            <div class="phase-title">ورود به بازارهای جدید</div>
+            <ul class="phase-items">
+                <li>🏫 ورود به مدارس و آموزشگاه‌ها</li>
+                <li>🏨 مدیریت هتل و اقامتگاه</li>
+                <li>🌐 ارائه نسخه انگلیسی</li>
+                <li>🎯 جذب ۲۰۰ مشتری</li>
+            </ul>
+        </div>
+        <div class="roadmap-line-h"></div>
+        <div class="roadmap-phase phase-4">
+            <div class="phase-badge">فاز ۴</div>
+            <div class="phase-period">۱ سال</div>
+            <div class="phase-icon">🏆</div>
+            <div class="phase-title">رشد و بین‌المللی‌شدن</div>
+            <ul class="phase-items">
+                <li>☁️ زیرساخت ابری اختصاصی</li>
+                <li>🌐 ورود به بازار کشورهای همسایه</li>
+                <li>👥 تشکیل تیم ۵ نفره</li>
+                <li>🎯 جذب ۱۰۰۰ مشتری</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ۱۲ — QR -->
+<section class="slide">
+    <div class="qr-layout">
+        <div class="qr-section">
+            <div class="qr-frame">
+                <div class="qr-header">📱 اسکن کنید</div>
+                <div class="qr-img-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=15&data=https%3A%2F%2Filyasalehzade6-wq.github.io%2Fpulse-landing%2F" alt="QR" class="qr-img">
+                </div>
+                <div class="qr-footer">🌐 pulse-landing</div>
+            </div>
+            <p class="qr-text">
+                📖 برای اطلاعات بیشتر<br>
+                <span class="hl">به این سایت مراجعه نمایید</span>
+            </p>
+            <div class="qr-arrow">👇</div>
+        </div>
+        <div class="brand-side">
+            <div class="brand-logo">⭐</div>
+            <h1 class="brand-name">پالس مدیریت</h1>
+            <p class="brand-tag">سیستم هوشمند<br>مدیریت باشگاه‌های ورزشی</p>
+            <div class="brand-divider"></div>
+            <p class="brand-msg">آماده‌ایم تا باشگاه شما را<br>به سطح بعدی ببریم</p>
+            <div class="brand-contacts">
+                <a href="tel:09137704340" class="contact-badge"><span>📱</span><span style="direction:ltr">09137704340</span></a>
+                <div class="contact-badge"><span>💬</span><span style="direction:ltr">@Pulsmanagersaport</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+document.getElementById('totalPages').textContent = total;
+let cur = 0;
+
+function go(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    slides[i].classList.add('active');
+    document.getElementById('currentPage').textContent = i + 1;
+    cur = i;
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { if (cur < total - 1) go(cur + 1); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { if (cur > 0) go(cur - 1); }
+});
+
+async function exportPPTX() {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '⏳ در حال ساخت...';
+    btn.disabled = true;
+
+    try {
+        const pptx = new PptxGenJS();
+        pptx.layout = 'LAYOUT_16x9';
+        const C = { bg: '0A0A14', dark: '1A1A2E', dark2: '2D1F4D', gold: 'F1C40F', red: 'E74C3C', green: '2ECC71', blue: '3498DB', text: 'E8E8F0', gray: '95A5A6' };
+        const F = 'Tahoma';
+
+        // Slide 1: Problem
+        let s1 = pptx.addSlide();
+        s1.background = { color: C.bg };
+        s1.addText('🚨 مشکلات امروز باشگاه‌ها', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.red, fontFace: F });
+        [['💸', '۷۰٪', 'اقساط فراموش'], ['📝', '۸۵٪', 'اطلاعات پراکنده'], ['🕐', '۵+ ساعت', 'کار دستی']].forEach((p, i) => {
+            const x = 6.7 - i * 3.1;
+            s1.addShape(pptx.ShapeType.roundRect, { x: x, y: 1.5, w: 2.8, h: 3.6, fill: { color: '2A1515' }, line: { color: C.red, width: 2 }, rectRadius: 0.2 });
+            s1.addText(p[0], { x: x, y: 1.7, w: 2.8, h: 1.2, fontSize: 50, align: 'center' });
+            s1.addText(p[1], { x: x, y: 3, w: 2.8, h: 1, fontSize: 34, bold: true, align: 'center', color: C.red, fontFace: F });
+            s1.addText(p[2], { x: x, y: 4.1, w: 2.8, h: 0.6, fontSize: 14, bold: true, align: 'center', color: C.text, fontFace: F });
+        });
+
+        // Slide 2: Solution
+        let s2 = pptx.addSlide();
+        s2.background = { color: C.bg };
+        s2.addText('✨ راه‌حل ما — فرایند کامل', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.green, fontFace: F });
+        [['۱', '📝', 'ثبت سریع'], ['۲', '🛡️', 'ذخیره محلی'], ['۳', '🔄', 'همگام‌سازی'], ['۴', '📱', 'دسترسی همه‌جا']].forEach((f, i) => {
+            const x = 7.4 - i * 2.3;
+            s2.addShape(pptx.ShapeType.roundRect, { x: x, y: 2, w: 2.1, h: 3.5, fill: { color: '1A2A1E' }, line: { color: C.green, width: 2 }, rectRadius: 0.2 });
+            s2.addShape(pptx.ShapeType.ellipse, { x: x + 1.6, y: 1.85, w: 0.6, h: 0.6, fill: { color: C.green } });
+            s2.addText(f[0], { x: x + 1.6, y: 1.85, w: 0.6, h: 0.6, fontSize: 16, bold: true, align: 'center', valign: 'middle', color: C.bg, fontFace: F });
+            s2.addText(f[1], { x: x, y: 2.5, w: 2.1, h: 1.2, fontSize: 46, align: 'center' });
+            s2.addText(f[2], { x: x, y: 3.8, w: 2.1, h: 0.6, fontSize: 15, bold: true, align: 'center', color: C.green, fontFace: F });
+        });
+
+        // Slide 3: Intro (Hero)
+        let s3 = pptx.addSlide();
+        s3.background = { color: C.bg };
+        s3.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 0.8, w: 0.9, h: 0.9, fill: { color: C.blue }, rectRadius: 0.2 });
+        s3.addText('💓', { x: 0.5, y: 0.9, w: 0.9, h: 0.7, fontSize: 32, align: 'center', color: 'FFFFFF' });
+        s3.addText('پالس مدیریت', { x: 1.6, y: 0.9, w: 5, h: 0.8, fontSize: 38, bold: true, color: C.gold, fontFace: F });
+        s3.addText('مدیریت یکپارچه، ساده و هوشمند', { x: 0.5, y: 2, w: 6, h: 0.5, fontSize: 20, bold: true, color: C.text, fontFace: F });
+        s3.addText('برای مجموعه‌های ورزشی و آموزشی', { x: 0.5, y: 2.6, w: 6, h: 0.5, fontSize: 14, color: C.gray, fontFace: F });
+        [['🇮🇷', 'کاملاً فارسی', 0.5], ['☁️', 'ابری و آفلاین', 2], ['👥', 'پورتال اعضا', 3.5], ['🛡️', 'امنیت', 5]].forEach(f => {
+            s3.addShape(pptx.ShapeType.roundRect, { x: f[2], y: 4.2, w: 1.4, h: 1.2, fill: { color: C.dark2 }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
+            s3.addText(f[0], { x: f[2], y: 4.3, w: 1.4, h: 0.6, fontSize: 24, align: 'center' });
+            s3.addText(f[1], { x: f[2], y: 4.9, w: 1.4, h: 0.4, fontSize: 10, bold: true, align: 'center', color: C.text, fontFace: F });
+        });
+        s3.addShape(pptx.ShapeType.roundRect, { x: 6.8, y: 1.3, w: 6, h: 5, fill: { color: C.dark }, line: { color: C.gold, width: 3 }, rectRadius: 0.2 });
+        s3.addText('⭐ پالس مدیریت', { x: 6.8, y: 1.5, w: 6, h: 0.5, fontSize: 14, bold: true, color: C.gold, fontFace: F, align: 'center' });
+        s3.addText('👥 ۲۴۷', { x: 7.1, y: 2.3, w: 1.7, h: 1, fontSize: 14, bold: true, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.blue }, fontFace: F });
+        s3.addText('💰 ۴۸M', { x: 8.95, y: 2.3, w: 1.7, h: 1, fontSize: 14, bold: true, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.green }, fontFace: F });
+        s3.addText('✅ ۱۸۹', { x: 10.8, y: 2.3, w: 1.7, h: 1, fontSize: 14, bold: true, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: '9B59B6' }, fontFace: F });
+
+        // Slide 4: Features
+        let s4 = pptx.addSlide();
+        s4.background = { color: C.bg };
+        s4.addText('🎯 به چه دردی می‌خوره؟ (ویژگی‌ها)', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
+        [['👥', 'اعضا'], ['✅', 'حضور'], ['💰', 'مالی'], ['📅', 'کلاس‌ها'], ['💬', 'پیام'], ['📊', 'گزارش'], ['🔔', 'اطلاع'], ['🎁', 'کیف پول'], ['🥤', 'بوفه'], ['👔', 'کارکنان'], ['🏆', 'رتبه'], ['🎫', 'کارت']].forEach((f, i) => {
+            const r = Math.floor(i / 4), c2 = i % 4;
+            const x = 7.4 - c2 * 2.3, y = 1.5 + r * 1.8;
+            s4.addShape(pptx.ShapeType.roundRect, { x: x, y: y, w: 2.1, h: 1.5, fill: { color: C.dark }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
+            s4.addText(f[0], { x: x, y: y + 0.15, w: 2.1, h: 0.7, fontSize: 34, align: 'center' });
+            s4.addText(f[1], { x: x, y: y + 0.85, w: 2.1, h: 0.5, fontSize: 13, bold: true, align: 'center', color: C.gold, fontFace: F });
+        });
+
+        // Slide 5: Tech - Dashboard
+        let s5 = pptx.addSlide();
+        s5.background = { color: C.bg };
+        s5.addText('💰 توضیحات فنی — امور مالی و داشبورد', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
+        s5.addText('تصمیم‌گیری بر اساس داده‌ها، نه حدس و گمان', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
+        s5.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
+        s5.addText('⭐ باشگاه ستارگان | ⏰ 12:08:33', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
+        s5.addShape(pptx.ShapeType.rect, { x: 0.7, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.blue } });
+        s5.addText('۶\nکل ورزشکاران', { x: 0.7, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fontFace: F });
+        s5.addShape(pptx.ShapeType.rect, { x: 2.8, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.green } });
+        s5.addText('۵\nفعال', { x: 2.8, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fontFace: F });
+        s5.addShape(pptx.ShapeType.rect, { x: 4.9, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.red } });
+        s5.addText('۱\nغیرفعال', { x: 4.9, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fontFace: F });
+        s5.addShape(pptx.ShapeType.rect, { x: 7.0, y: 2.2, w: 1.8, h: 0.8, fill: { color: C.gold } });
+        s5.addText('۲\nکلاس‌ها', { x: 7.0, y: 2.2, w: 1.8, h: 0.8, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fontFace: F });
+        s5.addText('📊 گزارش مالی', { x: 0.7, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s5.addText('💳 دریافت شهریه', { x: 2.8, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s5.addText('📝 ثبت مخارج', { x: 4.9, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s5.addText('📅 مدیریت اقساط', { x: 7.0, y: 3.2, w: 1.8, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s5.addText('آخرین تراکنش‌ها', { x: 0.7, y: 3.9, w: 8.6, h: 0.3, fontSize: 10, color: C.gold, fontFace: F });
+        s5.addTable([
+            [{ text: 'نوع', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'مبلغ', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'تاریخ', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'توضیحات', options: { bold: true, color: C.gold, fill: C.dark } }],
+            ['دریافت', '۱,۵۰۰,۰۰۰', '1405/07/16', 'شهریه مهدی']
+        ], { x: 0.7, y: 4.2, w: 8.6, h: 0.8, colW: [2, 2, 2, 2.6], fontSize: 10, align: 'center', valign: 'middle', fontFace: F, color: C.text, fill: { color: C.dark }, border: { type: 'solid', color: '2C3E50', pt: 1 } });
+
+        // Slide 6: Tech - Classes
+        let s6 = pptx.addSlide();
+        s6.background = { color: C.bg };
+        s6.addText('📅 توضیحات فنی — مدیریت کلاس‌ها', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
+        s6.addText('برنامه‌ریزی هوشمند، بدون تداخل', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
+        s6.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
+        s6.addText('⭐ باشگاه ستارگان | ⏰ 12:08:55', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
+        s6.addText('نام کلاس: سانس کوچیک ها', { x: 0.7, y: 2.2, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
+        s6.addText('رشته: کیک بوکسینگ', { x: 5.0, y: 2.2, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
+        s6.addText('مربی: مهدی صالح زاده', { x: 0.7, y: 2.8, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
+        s6.addText('شهریه: 1,500,000', { x: 5.0, y: 2.8, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
+        s6.addText('جنسیت: آقایان', { x: 0.7, y: 3.4, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
+        s6.addText('ظرفیت: 2', { x: 5.0, y: 3.4, w: 4, h: 0.4, fontSize: 10, color: C.gray, fill: { color: C.dark2 }, fontFace: F });
+        s6.addText('افزودن کلاس', { x: 0.7, y: 4.1, w: 1.5, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s6.addText('ویرایش', { x: 2.4, y: 4.1, w: 1.5, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s6.addText('حذف', { x: 4.1, y: 4.1, w: 1.5, h: 0.5, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.red }, fontFace: F });
+
+        // Slide 7: Tech - Attendance
+        let s7 = pptx.addSlide();
+        s7.background = { color: C.bg };
+        s7.addText('✅ توضیحات فنی — حضور و غیاب', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
+        s7.addText('ثبت یک‌کلیکی، گزارش لحظه‌ای', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
+        s7.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
+        s7.addText('⭐ باشگاه ستارگان | ⏰ 12:07:57', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
+        s7.addText('تاریخ: 1405/07/16 | کلاس: سانس کوچیک ها', { x: 0.7, y: 2.0, w: 8.6, h: 0.3, fontSize: 10, color: C.gray, fontFace: F });
+        s7.addText('حاضر: 0', { x: 0.7, y: 2.4, w: 1.5, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.green }, fontFace: F });
+        s7.addText('غایب: 0', { x: 2.4, y: 2.4, w: 1.5, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: 'FFFFFF', fill: { color: C.red }, fontFace: F });
+        s7.addText('تاخیر: 0', { x: 4.1, y: 2.4, w: 1.5, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s7.addTable([
+            [{ text: 'ردیف', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'نام', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'نام خانوادگی', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'حاضر', options: { bold: true, color: C.gold, fill: C.dark } }, { text: 'غایب', options: { bold: true, color: C.gold, fill: C.dark } }],
+            ['1', 'مهدی', 'امینی', '✅', '❌'],
+            ['2', 'ایلیا', 'صالح زاده', '❌', '✅']
+        ], { x: 0.7, y: 3.2, w: 8.6, h: 1.5, colW: [1.5, 2, 2, 1.5, 1.6], fontSize: 10, align: 'center', valign: 'middle', fontFace: F, color: C.text, fill: { color: C.dark }, border: { type: 'solid', color: '2C3E50', pt: 1 } });
+
+        // Slide 8: Tech - Reporting
+        let s8 = pptx.addSlide();
+        s8.background = { color: C.bg };
+        s8.addText('📊 توضیحات فنی — گزارش‌گیری حرفه‌ای', { x: 0.5, y: 0.2, w: 9, h: 0.6, fontSize: 28, bold: true, align: 'center', color: C.gold, fontFace: F });
+        s8.addText('خروجی‌های دقیق برای مدیریت بهتر', { x: 0.5, y: 0.8, w: 9, h: 0.4, fontSize: 16, align: 'center', color: C.text, fontFace: F });
+        s8.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.4, w: 9, h: 3.9, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
+        s8.addText('⭐ باشگاه ستارگان | ⏰ 12:09:27', { x: 0.7, y: 1.5, w: 8.6, h: 0.4, fontSize: 12, color: C.gold, fontFace: F });
+        s8.addText('📄 لیست اعضا (PDF)', { x: 0.7, y: 2.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s8.addText('📊 گزارش مالی (PDF)', { x: 5.0, y: 2.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s8.addText('✅ حضور و غیاب (Excel)', { x: 0.7, y: 3.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s8.addText('📈 گزارش کامل (PDF)', { x: 5.0, y: 3.2, w: 4, h: 0.8, fontSize: 12, align: 'center', valign: 'middle', color: '0A0A14', fill: { color: C.gold }, fontFace: F });
+        s8.addText('فیلتر کلاس: همه', { x: 0.7, y: 4.2, w: 8.6, h: 0.4, fontSize: 10, align: 'center', valign: 'middle', color: C.gray, fill: { color: C.dark2 }, fontFace: F });
+
+        // Slide 9: Target Market
+        let s9 = pptx.addSlide();
+        s9.background = { color: C.bg };
+        s9.addText('🎯 مخاطبین و بازار هدف ما', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
+        [['🏋️', 'باشگاه‌های ورزشی', 'مدیریت یکپارچه اعضا، مالی و کلاس‌ها'], ['🏫', 'آموزشگاه‌ها', 'سیستم حضور و غیاب دقیق و مدیریت شهریه'], ['🏨', 'مراکز اقامتی', 'مدیریت رزرو، پرسنل و امور مالی']].forEach((p, i) => {
+            const x = 6.7 - i * 3.1;
+            s9.addShape(pptx.ShapeType.roundRect, { x: x, y: 1.5, w: 2.8, h: 3.6, fill: { color: C.dark }, line: { color: C.blue, width: 2 }, rectRadius: 0.2 });
+            s9.addText(p[0], { x: x, y: 1.7, w: 2.8, h: 1.2, fontSize: 50, align: 'center' });
+            s9.addText(p[1], { x: x, y: 3, w: 2.8, h: 1, fontSize: 18, bold: true, align: 'center', color: C.blue, fontFace: F });
+            s9.addText(p[2], { x: x, y: 4.1, w: 2.8, h: 0.6, fontSize: 11, align: 'center', color: C.text, fontFace: F });
+        });
+
+        // Slide 10: Competitors
+        let s10 = pptx.addSlide();
+        s10.background = { color: C.bg };
+        s10.addText('🏆 مقایسه با رقبا و روش‌های سنتی', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
+        const td = [
+            [{ text: 'ویژگی', options: { bold: true, color: C.gold, fill: C.dark2 } },
+             { text: '⭐ پالس', options: { bold: true, color: C.gold, fill: C.dark2 } },
+             { text: '💼 رایج', options: { bold: true, color: C.gold, fill: C.dark2 } },
+             { text: '📝 کاغذ', options: { bold: true, color: C.gold, fill: C.dark2 } }],
+            ['کار در قطعی اینترنت', '✅', '❌', '✅'],
+            ['دسترسی از موبایل', '✅', '⚠️', '❌'],
+            ['پورتال اعضا', '✅', '❌', '❌'],
+            ['پیام‌رسان داخلی', '✅', '❌', '❌'],
+            ['گزارش‌های دقیق', '✅', '⚠️', '❌'],
+            ['همگام‌سازی ابری', '✅', '✅', '❌'],
+            ['امنیت اطلاعات', '✅', '⚠️', '❌'],
+        ];
+        s10.addTable(td, { x: 0.75, y: 1.2, w: 8.5, h: 4.0, colW: [3.5, 1.67, 1.67, 1.66], fontSize: 12, align: 'center', valign: 'middle', fontFace: F, color: C.text, fill: { color: C.dark }, border: { type: 'solid', color: '2C3E50', pt: 1.5 } });
+
+        // Slide 11: Roadmap
+        let s11 = pptx.addSlide();
+        s11.background = { color: C.bg };
+        s11.addText('🚀 فرایند ارتقاء در آینده', { x: 0.5, y: 0.3, w: 9, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
+        [['فاز ۱', '🌱', 'شروع و اعتبارسنجی', '۳ ماه'], ['فاز ۲', '📈', 'گسترش امکانات', '۶ ماه'], ['فاز ۳', '🌍', 'بازارهای جدید', '۹ ماه'], ['فاز ۴', '🏆', 'رشد و بین‌المللی', '۱ سال']].forEach((p, i) => {
+            const x = 7.4 - i * 2.3;
+            s11.addShape(pptx.ShapeType.roundRect, { x: x, y: 1.2, w: 2.1, h: 3.8, fill: { color: C.dark }, line: { color: C.gold, width: 2 }, rectRadius: 0.2 });
+            s11.addText(p[0], { x: x, y: 1.3, w: 2.1, h: 0.4, fontSize: 12, bold: true, align: 'center', color: C.gold, fill: { color: C.dark2 }, fontFace: F });
+            s11.addText(p[3], { x: x, y: 1.7, w: 2.1, h: 0.3, fontSize: 10, align: 'center', color: C.gray, fontFace: F });
+            s11.addText(p[1], { x: x, y: 2.1, w: 2.1, h: 1.0, fontSize: 40, align: 'center' });
+            s11.addText(p[2], { x: x, y: 3.2, w: 2.1, h: 0.5, fontSize: 13, bold: true, align: 'center', color: C.gold, fontFace: F });
+        });
+
+        // Slide 12: QR
+        let s12 = pptx.addSlide();
+        s12.background = { color: C.bg };
+        s12.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.2, w: 4.5, h: 4.0, fill: { color: C.dark2 }, line: { color: C.gold, width: 3 }, rectRadius: 0.25 });
+        s12.addText('📱 اسکن کنید', { x: 0.5, y: 1.4, w: 4.5, h: 0.5, fontSize: 18, bold: true, align: 'center', color: C.gold, fontFace: F });
+        try {
+            s12.addImage({ path: "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https%3A%2F%2Filyasalehzade6-wq.github.io%2Fpulse-landing%2F", x: 1.0, y: 1.9, w: 3.5, h: 3.0 });
+        } catch(e) {
+            s12.addText('[QR Code]', { x: 1.0, y: 1.9, w: 3.5, h: 3.0, fontSize: 20, align: 'center', valign: 'middle', color: C.gray, fill: { color: 'FFFFFF' }, fontFace: F });
+        }
+        s12.addText('🌐 pulse-landing', { x: 0.5, y: 4.9, w: 4.5, h: 0.3, fontSize: 12, bold: true, align: 'center', color: C.gold, fill: { color: C.dark }, fontFace: F });
+        s12.addText('⭐', { x: 6.0, y: 1.3, w: 3.5, h: 1.0, fontSize: 60, align: 'center', color: C.gold });
+        s12.addText('پالس مدیریت', { x: 5.5, y: 2.3, w: 4.0, h: 0.8, fontSize: 32, bold: true, align: 'center', color: C.gold, fontFace: F });
+        s12.addText('آماده‌ایم تا باشگاه شما را به سطح بعدی ببریم', { x: 5.5, y: 3.1, w: 4.0, h: 0.6, fontSize: 12, align: 'center', color: C.text, fontFace: F });
+        s12.addShape(pptx.ShapeType.roundRect, { x: 5.5, y: 3.9, w: 4.0, h: 0.5, fill: { color: C.dark2 }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
+        s12.addText('📱 09137704340', { x: 5.5, y: 3.9, w: 4.0, h: 0.5, fontSize: 12, bold: true, align: 'center', valign: 'middle', color: C.gold, fontFace: F });
+        s12.addShape(pptx.ShapeType.roundRect, { x: 5.5, y: 4.5, w: 4.0, h: 0.5, fill: { color: C.dark2 }, line: { color: C.gold, width: 1.5 }, rectRadius: 0.15 });
+        s12.addText('💬 @Pulsmanagersaport', { x: 5.5, y: 4.5, w: 4.0, h: 0.5, fontSize: 10, bold: true, align: 'center', valign: 'middle', color: C.gold, fontFace: F });
+
+        await pptx.writeFile({ fileName: 'PulseManagement-PitchDeck.pptx' });
+        btn.textContent = '✅ دانلود شد!';
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+    } catch (err) {
+        console.error(err);
+        alert('❌ خطا: ' + err.message);
+        btn.textContent = orig;
+        btn.disabled = false;
+    }
+}
+</script>
+</body>
+</html>
