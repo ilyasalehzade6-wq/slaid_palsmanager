@@ -661,6 +661,9 @@ body {
 .feature-card.star .feature-title { font-size: 16px; }
 .feature-desc { font-size: 11px; color: #95a5a6; line-height: 1.5; }
 
+/* ═══════════════════════════════════════════════════════════
+   اسلاید مقایسه (Competitors)
+   ═══════════════════════════════════════════════════════════ */
 .compare-grid {
     display: grid; grid-template-columns: 1.2fr 1fr 1fr;
     gap: 22px; max-width: 1500px; margin: 0 auto; width: 100%;
@@ -680,11 +683,30 @@ body {
     font-size: 18px; font-weight: 900;
     background: #2d1f4d; color: #f1c40f;
     border-bottom: 2px solid #2c3e50;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 .compare-col.mine .compare-head {
     background: linear-gradient(135deg, #f1c40f, #d4ac0d);
     color: #0a0a14; font-size: 20px;
 }
+/* استایل متن مثال برنامه‌ها */
+.comp-example {
+    font-size: 12px;
+    font-weight: 600;
+    color: #95a5a6;
+    background: rgba(0,0,0,0.2);
+    padding: 3px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-top: 5px;
+}
+.compare-col.mine .comp-example {
+    color: #0a0a14;
+    background: rgba(255,255,255,0.3);
+}
+
 .compare-list { padding: 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .compare-row {
     display: flex; justify-content: space-between;
@@ -1372,12 +1394,17 @@ body {
         </div>
     </section>
 
-    <!-- ۱۰ — رقیب ها -->
+    <!-- ۱۰ — رقیب ها (اضافه شدن مثال برنامه‌ها) -->
     <section class="slide">
         <h2 class="slide-title">🏆 مقایسه با رقبا و روش‌های سنتی</h2>
         <div class="compare-grid">
+            
+            <!-- Our Solution -->
             <div class="compare-col mine">
-                <div class="compare-head">⭐ پالس مدیریت</div>
+                <div class="compare-head">
+                    ⭐ پالس مدیریت
+                    <span class="comp-example">(نرم‌افزار اختصاصی)</span>
+                </div>
                 <div class="compare-list">
                     <div class="compare-row"><span class="compare-name">کار در قطعی اینترنت</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
                     <div class="compare-row"><span class="compare-name">دسترسی از موبایل</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
@@ -1388,8 +1415,13 @@ body {
                     <div class="compare-row"><span class="compare-name">امنیت اطلاعات</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
                 </div>
             </div>
+
+            <!-- Common Software -->
             <div class="compare-col">
-                <div class="compare-head">💼 نرم‌افزار رایج</div>
+                <div class="compare-head">
+                    💼 نرم‌افزار رایج
+                    <span class="comp-example">(مثل: اکسل، هلو)</span>
+                </div>
                 <div class="compare-list">
                     <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
                     <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
@@ -1400,8 +1432,13 @@ body {
                     <div class="compare-row"><span class="compare-name">امنیت</span><span class="compare-mark" style="color:#f39c12">⚠️</span></div>
                 </div>
             </div>
+
+            <!-- Pen & Paper -->
             <div class="compare-col">
-                <div class="compare-head">📝 دفتر و کاغذ</div>
+                <div class="compare-head">
+                    📝 دفتر و کاغذ
+                    <span class="comp-example">(روش سنتی دستی)</span>
+                </div>
                 <div class="compare-list">
                     <div class="compare-row"><span class="compare-name">کار در قطعی</span><span class="compare-mark" style="color:#2ecc71">✅</span></div>
                     <div class="compare-row"><span class="compare-name">دسترسی موبایل</span><span class="compare-mark" style="color:#e74c3c">❌</span></div>
@@ -1512,10 +1549,8 @@ body {
     const totalPages = slides.length;
     const counterText = document.getElementById('pageCounterText');
     
-    // Initial counter setup
     counterText.textContent = `1 / ${totalPages}`;
 
-    // IntersectionObserver to update page counter accurately
     const observerOptions = {
         root: wrapper,
         threshold: 0.5
@@ -1532,7 +1567,6 @@ body {
 
     slides.forEach(slide => observer.observe(slide));
 
-    // Keyboard Navigation (for laptops/desktops)
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
             wrapper.scrollBy({ left: -wrapper.clientWidth, behavior: 'smooth' });
